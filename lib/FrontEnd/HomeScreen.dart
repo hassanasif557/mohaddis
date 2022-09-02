@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
+import 'package:mohaddis/FrontEnd/BookScreen.dart';
+import 'package:mohaddis/FrontEnd/ChapterScreen.dart';
+import 'package:mohaddis/FrontEnd/SearchScreen.dart';
+import 'package:mohaddis/FrontEnd/UpdateScreen.dart';
+import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
+import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
+import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
+import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
+import 'SettingScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       key: _scaffoldKey,
       drawer: _drawer(),
       appBar: PreferredSize(
@@ -80,14 +90,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.only(right: 20.0,top: 10.0),
                   child: Column(
                     children: [
-                      Container(
-                        width: 35,
-                        height: 35,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                'assets/images/forma_1_copy.png'),
-                            fit: BoxFit.fill,
+                      GestureDetector(
+                        onTap:(){
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) => SettingScreen()));
+                        },
+                        child: Container(
+                          width: 35,
+                          height: 35,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/images/forma_1_copy.png'),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ),
@@ -117,7 +133,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.transparent,
                             child: InkWell(
                               splashColor: Colors.green,
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) => SearchScreen()));
+                              },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -132,7 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                   ), // <-- Icon
-                                  Text("تلاش "), // <-- Text
+                                  Text("تلاش ",
+                                      style: TextStyle(fontFamily: 'NotoNastaliqUrdu',fontSize: 10.0,)), // <-- Text
                                 ],
                               ),
                             ),
@@ -151,7 +171,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.transparent,
                                 child: InkWell(
                                   splashColor: Colors.green,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (_) => ChapterScreen()));
+                                  },
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -166,7 +189,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                       ), // <-- Icon
-                                      Text("موضوعات "), // <-- Text
+                                      Text("موضوعات ",
+                                        style: TextStyle(fontFamily: 'NotoNastaliqUrdu',fontSize: 10.0,)), // <-- Text
                                     ],
                                   ),
                                 ),
@@ -236,7 +260,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.transparent,
                                 child: InkWell(
                                   splashColor: Colors.green,
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (_) => BookScreen()));
+                                  },
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -251,7 +278,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                       ), // <-- Icon
-                                      Text("کتابیں "), // <-- Text
+                                      Text("کتابیں ",
+                                          style: TextStyle(fontFamily: 'NotoNastaliqUrdu',fontSize: 10.0,)), // <-- Text
                                     ],
                                   ),
                                 ),
@@ -269,7 +297,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.transparent,
                             child: InkWell(
                               splashColor: Colors.green,
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) => UpdateScreen()));
+                              },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -284,7 +315,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                   ), // <-- Icon
-                                  Text("اپڈیٹس "), // <-- Text
+                                  Text("اپڈیٹس ",
+                                      style: TextStyle(fontFamily: 'NotoNastaliqUrdu',
+                                        fontSize: 10.0,)), // <-- Text
                                 ],
                               ),
                             ),
@@ -324,59 +357,88 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        color: Colors.black,
-        child: ListView(
-          shrinkWrap: true,
+        color: Colors.white,
+        child: Stack(
           children: [
-            SizedBox(
-              height: 10.0,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => HomeScreen()));
-              },
-              child: Center(
-                child: CircleAvatar(
-                  backgroundImage: ExactAssetImage('assets/images/google.png'),
-                  backgroundColor: Colors.black,
-                  radius: MediaQuery.of(context).orientation ==
-                      Orientation.portrait
-                      ? MediaQuery.of(context).size.height *
-                      (1.2 / 8) /
-                      2.5
-                      : MediaQuery.of(context).size.height *
-                      (2.5 / 8) /
-                      2.5,
+            Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+
+                  },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Container(
+                          width: 150,
+                          height: 220,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/images/vector_smart_object_1.png'),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 110,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                                'assets/images/layer_7_copy_2.png'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                _menuOptions('assets/images/l_0001nav.png', 'خصوصیات'),
+                SizedBox(
+                  height: 10.0,
+                ),
+                _menuOptions('assets/images/group_48.png', 'کچھ ہمارے بارے میں'),
+                SizedBox(
+                  height: 10.0,
+                ),
+                _menuOptions('assets/images/forma_1nav.png', 'تعاون'),
+                SizedBox(
+                  height: 10.0,
+                ),
+                _menuOptions('assets/images/l_1.png', 'رابطہ'),
+                SizedBox(
+                  height: 30.0,
+                ),
+              ],
             ),
-            SizedBox(
-              height: 30.0,
-            ),
-            _menuOptions(Icons.person_outline_rounded, 'Profile'),
-            SizedBox(
-              height: 10.0,
-            ),
-            _menuOptions(Icons.settings, 'Setting'),
-            SizedBox(
-              height: 10.0,
-            ),
-            _menuOptions(Icons.support_outlined, 'Support'),
-            SizedBox(
-              height: 10.0,
-            ),
-            _menuOptions(Icons.description_outlined, 'About'),
-            SizedBox(
-              height: 30.0,
-            ),
+
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                width: 150,
+                height: 130,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        'assets/images/pattern.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),)
           ],
+
         ),
       ),
     );
   }
 
-  Widget _menuOptions(IconData icon, String menuOptionIs) {
+  Widget _menuOptions(String assetimage, String menuOptionIs) {
     return OpenContainer(
       transitionType: ContainerTransitionType.fadeThrough,
       transitionDuration: Duration(
@@ -384,9 +446,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       closedElevation: 0.0,
       openElevation: 3.0,
-      closedColor: Colors.black,
-      openColor: Colors.black,
-      middleColor: Colors.black,
+      closedColor: Colors.transparent,
+      openColor: Colors.transparent,
+      middleColor: Colors.transparent,
       onClosed: (value) {
         // print('Profile Page Closed');
         // if (mounted) {
@@ -396,36 +458,47 @@ class _HomeScreenState extends State<HomeScreen> {
         // }
       },
       openBuilder: (context, openWidget) {
-        if (menuOptionIs == 'Profile')
-          return HomeScreen();
-        else if (menuOptionIs == 'Setting')
-          return HomeScreen();
-        else if (menuOptionIs == 'Support')
-          return HomeScreen();
-        else if (menuOptionIs == 'About') return HomeScreen();
+        if (menuOptionIs == 'خصوصیات')
+          return PropertiesScreen();
+        else if (menuOptionIs == 'کچھ ہمارے بارے میں')
+          return AboutScreen();
+        else if (menuOptionIs == 'تعاون')
+          return SupportScreen();
+        else if (menuOptionIs == 'رابطہ') return ContactScreen();
         return Center();
       },
       closedBuilder: (context, closeWidget) {
         return SizedBox(
-          height: 60.0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                color: Colors.lightBlue,
-              ),
-              SizedBox(
-                width: 10.0,
-              ),
-              Text(
-                menuOptionIs,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
+          height: 40.0,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  menuOptionIs,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.black,
+                      fontFamily: 'NotoNastaliqUrdu'
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: 30.0,
+                ),
+                Container(
+                  width: 15,
+                  height: 15,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(assetimage),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+
+              ],
+            ),
           ),
         );
       },
