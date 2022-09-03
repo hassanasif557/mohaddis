@@ -1,5 +1,9 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:mohaddis/FrontEnd/HomeScreen.dart';
+import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
+import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
+import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
 
 class PropertiesScreen extends StatefulWidget {
   const PropertiesScreen({Key? key}) : super(key: key);
@@ -9,10 +13,14 @@ class PropertiesScreen extends StatefulWidget {
 }
 
 class _PropertiesScreenState extends State<PropertiesScreen> {
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      key: _scaffoldKey,
+      drawer: _drawer(),
       backgroundColor: Color.fromARGB(255,220, 228, 241),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60), // Set this height
@@ -34,7 +42,7 @@ class _PropertiesScreenState extends State<PropertiesScreen> {
                     children: [
                       GestureDetector(
                         onTap:(){
-
+                          _scaffoldKey.currentState?.openDrawer();
                         },
                         child: Container(
                           width: 35,
@@ -126,7 +134,7 @@ class _PropertiesScreenState extends State<PropertiesScreen> {
                   textAlign: TextAlign.right,
                   style: TextStyle(
                       fontSize: 10.0,
-                      color: Colors.black,
+                      color: Colors.grey[700],
                       fontFamily: 'NotoNastaliqUrdu'
                   ),),
               ),
@@ -157,7 +165,7 @@ class _PropertiesScreenState extends State<PropertiesScreen> {
                   textAlign: TextAlign.right,
                   style: TextStyle(
                       fontSize: 10.0,
-                      color: Colors.black,
+                      color: Colors.grey[700],
                       fontFamily: 'NotoNastaliqUrdu'
                   ),),
               ),
@@ -179,9 +187,557 @@ class _PropertiesScreenState extends State<PropertiesScreen> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 12.0, right: 10.0, bottom: 10.0),
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text('یہ ویب سائٹ متعدد شاندار خصوصیات کی حامل ہے جن میں قاری کو زیادہ سے زیادہ سہولیات فراہم کرنے کی کوشش کی گئی ہے۔ ان میں سے چند معروف خصوصیات درج ذیل ہیں',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.grey[700],
+                      fontFamily: 'NotoNastaliqUrdu'
+                  ),),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(3))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text('احادیث مبارکہ کو چار طریقوں سے تلاش کی سہولت: 1. عربی متن ، اردو ترجمہ 2. کتاب، باب 3. حدیث نمبر 4. موضوعات حدیث',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey[700],
+                                  fontFamily: 'NotoNastaliqUrdu'
+                              ),),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.green[700],
+                            borderRadius: BorderRadius.all(Radius.circular(3))
+                        ),
+                        width: 50.0,
+                        height: 47,
+                        child: Center(child: Text('1')),),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(3))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text('ہر کتابِ حدیث کی متعدد متداول تراقیم',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey[700],
+                                  fontFamily: 'NotoNastaliqUrdu'
+                              ),),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.green[700],
+                            borderRadius: BorderRadius.all(Radius.circular(3))
+                        ),
+                        width: 50.0,
+                        height: 23,
+                        child: Center(child: Text('2')),),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(3))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text('ہر حدیث کے متعدد اُردو تراجم',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey[700],
+                                  fontFamily: 'NotoNastaliqUrdu'
+                              ),),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.green[700],
+                            borderRadius: BorderRadius.all(Radius.circular(3))
+                        ),
+                        width: 50.0,
+                        height: 23,
+                        child: Center(child: Text('3')),),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(3))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text('ہر حدیث کی صحت وضعف پر متعدّد اہل علم کا حکم',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey[700],
+                                  fontFamily: 'NotoNastaliqUrdu'
+                              ),),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.green[700],
+                            borderRadius: BorderRadius.all(Radius.circular(3))
+                        ),
+                        width: 50.0,
+                        height: 23,
+                        child: Center(child: Text('4')),),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(3))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text('تمام صحاح ستہ یا ایک یا دو منتخب کتب میں علیحدہ سے تلاش کی سہولت',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey[700],
+                                  fontFamily: 'NotoNastaliqUrdu'
+                              ),),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.green[700],
+                            borderRadius: BorderRadius.all(Radius.circular(3))
+                        ),
+                        width: 50.0,
+                        height: 23,
+                        child: Center(child: Text('5')),),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(3))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text('ہر حدیث کے متعلق دستیاب سہولیات: (1. حکم اجمالی وتفصیلی ، 2. موضوعات، 3. شرح 4. تخریج)',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey[700],
+                                  fontFamily: 'NotoNastaliqUrdu'
+                              ),),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.green[700],
+                            borderRadius: BorderRadius.all(Radius.circular(3))
+                        ),
+                        width: 50.0,
+                        height: 47,
+                        child: Center(child: Text('6')),),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(3))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text('ہر حدیث میں نسبت حدیث (قدسی، مرفوع، موقوف، مقطوع)، اتصال سند (متصل ، منقطع) ، اور قسم (قولی، فعلی، تقریری) کی وضاحت',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey[700],
+                                  fontFamily: 'NotoNastaliqUrdu'
+                              ),),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.green[700],
+                            borderRadius: BorderRadius.all(Radius.circular(3))
+                        ),
+                        width: 50.0,
+                        height: 47,
+                        child: Center(child: Text('7')),),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(3))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text('ڈیفالٹ سیٹنگ:صارفین کیلئے اپنی خاص سیٹنگ (مثلاً مخصوص ترقیم، ترجمہ یا حکم وغیرہ) متعیّن کرنے کی سہولت',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 9.0,
+                                  color: Colors.grey[700],
+                                  fontFamily: 'NotoNastaliqUrdu'
+                              ),),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.green[700],
+                            borderRadius: BorderRadius.all(Radius.circular(3))
+                        ),
+                        width: 50.0,
+                        height: 47,
+                        child: Center(child: Text('8')),),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
 
         ],
       ),
     );
   }
+
+
+  Widget _drawer(){
+    return Drawer(
+      elevation: 10.0,
+      child: Container(
+        width: double.maxFinite,
+        height: double.maxFinite,
+        color: Colors.white,
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+
+                  },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Container(
+                          width: 150,
+                          height: 220,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                  'assets/images/vector_smart_object_1.png'),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 110,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                                'assets/images/layer_7_copy_2.png'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                _menuOptions('assets/images/l_0001nav.png', 'خصوصیات'),
+                SizedBox(
+                  height: 10.0,
+                ),
+                _menuOptions('assets/images/group_48.png', 'کچھ ہمارے بارے میں'),
+                SizedBox(
+                  height: 10.0,
+                ),
+                _menuOptions('assets/images/forma_1nav.png', 'تعاون'),
+                SizedBox(
+                  height: 10.0,
+                ),
+                _menuOptions('assets/images/l_1.png', 'رابطہ'),
+                SizedBox(
+                  height: 30.0,
+                ),
+              ],
+            ),
+
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                width: 150,
+                height: 130,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        'assets/images/pattern.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),)
+          ],
+
+        ),
+      ),
+    );
+  }
+
+  Widget _menuOptions(String assetimage, String menuOptionIs) {
+    return OpenContainer(
+      transitionType: ContainerTransitionType.fadeThrough,
+      transitionDuration: Duration(
+        milliseconds: 500,
+      ),
+      closedElevation: 0.0,
+      openElevation: 3.0,
+      closedColor: Colors.transparent,
+      openColor: Colors.transparent,
+      middleColor: Colors.transparent,
+      onClosed: (value) {
+        // print('Profile Page Closed');
+        // if (mounted) {
+        //   setState(() {
+        //     ImportantThings.findImageUrlAndUserName();
+        //   });
+        // }
+      },
+      openBuilder: (context, openWidget) {
+        if (menuOptionIs == 'خصوصیات')
+          return PropertiesScreen();
+        else if (menuOptionIs == 'کچھ ہمارے بارے میں')
+          return AboutScreen();
+        else if (menuOptionIs == 'تعاون')
+          return SupportScreen();
+        else if (menuOptionIs == 'رابطہ') return ContactScreen();
+        return Center();
+      },
+      closedBuilder: (context, closeWidget) {
+        return SizedBox(
+          height: 40.0,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  menuOptionIs,
+                  style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.grey[700],
+                      fontFamily: 'NotoNastaliqUrdu'
+                  ),
+                ),
+                SizedBox(
+                  width: 30.0,
+                ),
+                Container(
+                  width: 15,
+                  height: 15,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(assetimage),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }
