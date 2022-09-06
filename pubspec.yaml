@@ -31,6 +31,8 @@ dependencies:
     sdk: flutter
   loading_overlay:
   animations:
+  dio:
+  http:
 
 
   # The following adds the Cupertino Icons fonts to your application.
