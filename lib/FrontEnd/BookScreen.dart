@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:mohaddis/BookScreens/SubBookScreen1.dart';
 import 'package:mohaddis/FrontEnd/HomeScreen.dart';
 import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
 import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
@@ -128,7 +129,8 @@ class _BookScreenState extends State<BookScreen> {
               children:[
                 GestureDetector(
                   onTap: (){
-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'سنن أبي داؤد')));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -155,7 +157,8 @@ class _BookScreenState extends State<BookScreen> {
                 ),
                 GestureDetector(
                   onTap: (){
-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'صحيح مسلم')));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -182,7 +185,8 @@ class _BookScreenState extends State<BookScreen> {
                 ),
                 GestureDetector(
                   onTap: (){
-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'صحیح بخاری ')));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -209,7 +213,8 @@ class _BookScreenState extends State<BookScreen> {
                 ),
                 GestureDetector(
                   onTap: (){
-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'سنن ابن ماجه')));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -236,7 +241,8 @@ class _BookScreenState extends State<BookScreen> {
                 ),
                 GestureDetector(
                   onTap: (){
-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'سنن النسائي')));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -263,7 +269,8 @@ class _BookScreenState extends State<BookScreen> {
                 ),
                 GestureDetector(
                   onTap: (){
-
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'جامع الترمذي')));
                   },
                   child: Container(
                     decoration: BoxDecoration(

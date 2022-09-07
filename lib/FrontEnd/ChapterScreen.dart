@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:mohaddis/ChapterScreens/SubChapterScreen1.dart';
 import 'package:mohaddis/FrontEnd/HomeScreen.dart';
 import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
 import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
@@ -198,6 +199,8 @@ class _ChapterScreenState extends State<ChapterScreen> {
                               selected: true,
                               onTap: () {
                                 setState(() {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) => SubChapterScreen1(name: '${posobj.data![index].name.toString()}')));
                                 });
                               },
                             ),
