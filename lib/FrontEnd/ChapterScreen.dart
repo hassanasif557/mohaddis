@@ -7,6 +7,7 @@ import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
 import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChapterScreen extends StatefulWidget {
   const ChapterScreen({Key? key}) : super(key: key);
@@ -197,7 +198,9 @@ class _ChapterScreenState extends State<ChapterScreen> {
                                 ),
                               ),
                               selected: true,
-                              onTap: () {
+                              onTap: () async{
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                prefs.setString('mainchapter', "${posobj.data![index].name.toString()}");
                                 setState(() {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (_) => SubChapterScreen1(name: '${posobj.data![index].name.toString()}')));

@@ -1,12 +1,13 @@
 import 'package:animations/animations.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:mohaddis/ChapterScreens/SubChapterScreen3.dart';
+import 'package:mohaddis/ChapterScreens/SubChapterHomeScreen.dart';
 import 'package:mohaddis/FrontEnd/HomeScreen.dart';
 import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
 import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SubChapterScreen2 extends StatefulWidget {
 
@@ -199,10 +200,12 @@ class _SubChapterScreen2State extends State<SubChapterScreen2> {
                                   ),
                                 ),
                                 selected: true,
-                                onTap: () {
+                                onTap: () async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('subchapter2', "${posobj.data![index].name.toString()}");
                                   setState(() {
                                     Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) => SubChapterScreen3(name: '${posobj.data![index].name.toString()}')));
+                                        MaterialPageRoute(builder: (_) => SubChapterHomeScreen(name: '${posobj.data![index].name.toString()}')));
                                   });
                                 },
                               ),

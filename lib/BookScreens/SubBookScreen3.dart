@@ -8,6 +8,7 @@ import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
 import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SubBookScreen3 extends StatefulWidget {
 
@@ -200,7 +201,9 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                                   ),
                                 ),
                                 selected: true,
-                                onTap: () {
+                                onTap: () async{
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString('subbook3', "${posobj.data![index].name.toString()}");
                                   setState(() {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (_) => SubBookHomeScreen(name: '${posobj.data![index].name.toString()}')));

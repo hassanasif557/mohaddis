@@ -6,6 +6,7 @@ import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
 import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BookScreen extends StatefulWidget {
   const BookScreen({Key? key}) : super(key: key);
@@ -128,7 +129,9 @@ class _BookScreenState extends State<BookScreen> {
               shrinkWrap: true,
               children:[
                 GestureDetector(
-                  onTap: (){
+                  onTap: () async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('mainbook', "سنن أبي داؤد");
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'سنن أبي داؤد')));
                   },
@@ -156,7 +159,9 @@ class _BookScreenState extends State<BookScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () async{
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('mainbook', "صحيح مسلم");
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'صحيح مسلم')));
                   },
@@ -184,7 +189,9 @@ class _BookScreenState extends State<BookScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: ()async{
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('mainbook', "صحیح بخاری");
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'صحیح بخاری ')));
                   },
@@ -212,7 +219,9 @@ class _BookScreenState extends State<BookScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: ()async{
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('mainbook', "سنن ابن ماجه");
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'سنن ابن ماجه')));
                   },
@@ -240,7 +249,9 @@ class _BookScreenState extends State<BookScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: ()async{
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('mainbook', "سنن النسائي");
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'سنن النسائي')));
                   },
@@ -268,7 +279,9 @@ class _BookScreenState extends State<BookScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: ()async{
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setString('mainbook', "جامع الترمذي");
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'جامع الترمذي')));
                   },

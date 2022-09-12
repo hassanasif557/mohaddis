@@ -33,6 +33,7 @@ dependencies:
   animations:
   dio:
   http:
+  shared_preferences:
 
 
   # The following adds the Cupertino Icons fonts to your application.
