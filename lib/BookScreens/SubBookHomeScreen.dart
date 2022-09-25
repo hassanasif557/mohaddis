@@ -1,11 +1,18 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:mohaddis/CustomScreens/CustomDialogBoxAlsharrah.dart';
+import 'package:mohaddis/CustomScreens/CustomDialogBoxAltarakeem.dart';
+import 'package:mohaddis/ModelClasses/AlSharrahModel.dart';
 
 import '../CustomScreens/CustomDialogBox.dart';
 import '../CustomScreens/CustomDialogBoxAlHukm.dart';
+import '../CustomScreens/CustomDialogBoxAlMozoo.dart';
+import '../CustomScreens/CustomDialogBoxAltarajum.dart';
 import '../FrontEnd/HomeScreen.dart';
 import '../ModelClasses/AlhukmModel.dart';
 import '../ModelClasses/AltahreejModel.dart';
+import '../ModelClasses/AltarajumModel.dart';
+import '../ModelClasses/AltarakeemModel.dart';
 import '../NavMenuScreens/AboutScreen.dart';
 import '../NavMenuScreens/ContactScreen.dart';
 import '../NavMenuScreens/PropertiesScreen.dart';
@@ -34,6 +41,12 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
   bool chapterbar = true;
   List<AltahreejModel> altahreejlist = [];
   List<AlhukmModel> alhukmlist = [];
+  late AltarajumModel altarajumModel;
+  List<AltarakeemModel> altarakeemlist = [];
+  late AlSharrahModel alSharrahModel;
+
+  List<String> almozooList = [];
+  List<String> mozooatList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -544,7 +557,28 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                         : Center(
                             child: InkWell(
                               splashColor: Colors.green,
-                              onTap: () {},
+                              onTap: () {
+
+                                almozooList.clear();
+                                almozooList.add('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث');
+                                almozooList.add('الحكم على الحديث ى الحديث الحكم على الحديث');
+                                almozooList.add('الحكم على الحديث حكم على الحديث');
+
+                                mozooatList.clear();
+                                mozooatList.add('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث');
+                                mozooatList.add('الحكم على الحديث ى الحديث الحكم على الحديث');
+                                mozooatList.add('الحكم على الحديث حكم على الحديث');
+
+                                showDialog(context: context,
+                                    builder: (BuildContext context){
+                                      return CustomDialogBoxAlMozoo(
+                                          almozooList: almozooList,
+                                          mozooatList: mozooatList,
+                                          title: 'موضوعات '
+                                      );
+                                    }
+                                );
+                              },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -657,10 +691,10 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                             onTap: () {
 
                               alhukmlist.clear();
-                              alhukmlist.add(AlhukmModel('book_name', '234454'));
-                              alhukmlist.add(AlhukmModel('book_name', '23443354'));
-                              alhukmlist.add(AlhukmModel('book_name', '2354'));
-                              alhukmlist.add(AlhukmModel('book_name', '454'));
+                              alhukmlist.add(AlhukmModel('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث', 'الحكم يث'));
+                              alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
+                              alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
+                              alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
                               showDialog(context: context,
                                   builder: (BuildContext context){
                                     return CustomDialogBoxAlHukm(
@@ -696,7 +730,18 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                         Expanded(
                           child: InkWell(
                             splashColor: Colors.green,
-                            onTap: () {},
+                            onTap: () {
+
+                              altarajumModel = AltarajumModel('tab1', 'tab2');
+                              showDialog(context: context,
+                                  builder: (BuildContext context){
+                                    return CustomDialogBoxAltarajum(
+                                        altarajumModel: altarajumModel,
+                                        title: 'التراجم'
+                                    );
+                                  }
+                              );
+                            },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -723,7 +768,22 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                         Expanded(
                           child: InkWell(
                             splashColor: Colors.green,
-                            onTap: () {},
+                            onTap: () {
+
+                              altarakeemlist.clear();
+                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث', '454'));
+                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '23454'));
+                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '234454'));
+                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '2354'));
+                              showDialog(context: context,
+                                  builder: (BuildContext context){
+                                    return CustomDialogBoxAltarakeem(
+                                        altarakeemlist: altarakeemlist,
+                                        title: 'التراقيم'
+                                    );
+                                  }
+                              );
+                            },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -750,7 +810,17 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                         Expanded(
                           child: InkWell(
                             splashColor: Colors.green,
-                            onTap: () {},
+                            onTap: () {
+                              alSharrahModel = AlSharrahModel('اس حدیث مبارکہ کے مطابق جو شخص مالی کفالت کرے گا اس کے لئے بھی اتنا ہی اجر جتنا کہ میدان عمل میں شریک شخص کے لئے ہے۔  تو آئیے! مجلس کے ساتھ ماہانہ یا سالانہ بنیادوں پر تعاون کا ایک سلسلہ شروع کریں تاکہ دین حق کے عالمگیر پیغام امن کو دنیا کے کونے کونے تک پہنچایا جا سکے۔ اللہ ہم سب حامی وناصر ہو اور ہمیں اپنے دین حنیف کی خدمت کی خدمت کی توفیق عطا فرمائے۔آمین');
+                              showDialog(context: context,
+                                  builder: (BuildContext context){
+                                    return CustomDialogBoxAlsharrah(
+                                        alSharrahModel: alSharrahModel,
+                                        title: 'شرح '
+                                    );
+                                  }
+                              );
+                            },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[

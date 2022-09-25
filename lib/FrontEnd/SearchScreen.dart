@@ -689,55 +689,120 @@ class _CustomDialogState extends State<CustomDialog> {
   ];
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('     منتخب کریں',
-        textAlign: TextAlign.right,),
-      content: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              child: ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.all(8.0),
-                  children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: _texts.length,
-                      itemBuilder: (_, index) {
-                        return CheckboxListTile(
+    return Stack(
+      children: <Widget>[
+        Center(
+          child: Container(
+            height: 500,
+            width: 300,
+            padding: EdgeInsets.only(bottom: 20.0),
+            margin:
+            EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0, bottom: 60.0),
+            decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Color.fromARGB(255, 220, 228, 241),
+                borderRadius: BorderRadius.circular(3.0),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
+                ]),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  height: 50.0,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/rectangle_798.png'),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 6.0, left: 45.0),
+                              child: DefaultTextStyle(
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontFamily: 'NotoNastaliqUrdu'),
+                                child: Text(
+                                  'منتخب کریں',
+                                ),
+                              ),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0, top: 20.0),
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Container(
+                                width: 25,
+                                height: 15,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image:
+                                    AssetImage('assets/images/group_38.png'),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: _texts.length,
+                    itemBuilder: (_, index) {
+                      return Material(
+                        child: CheckboxListTile(
                           title: Text(_texts[index]),
                           value: _isChecked[index],
                           onChanged: (val) {
                             setState(() {
                               if(index == 0)
+                              {
+                                if(val == true)
                                 {
-                                  if(val == true)
-                                    {
-                                      for (int i=0;i<_isChecked.length;i++) {
-                                        _isChecked[i] = true;
-                                      }
-                                    }
-                                  else{
-                                    for (int i=0;i<_isChecked.length;i++) {
-                                      _isChecked[i] = false;
-                                    }
+                                  for (int i=0;i<_isChecked.length;i++) {
+                                    _isChecked[i] = true;
                                   }
                                 }
+                                else{
+                                  for (int i=0;i<_isChecked.length;i++) {
+                                    _isChecked[i] = false;
+                                  }
+                                }
+                              }
                               else{
                                 _isChecked[index] = val!;
                               }
 
                             });
                           },
-                        );
-                      },
-                    ),
-                  ]),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

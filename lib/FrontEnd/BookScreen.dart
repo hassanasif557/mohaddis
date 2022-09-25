@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mohaddis/BookScreens/SubBookScreen1.dart';
 import 'package:mohaddis/FrontEnd/HomeScreen.dart';
@@ -18,6 +19,16 @@ class BookScreen extends StatefulWidget {
 class _BookScreenState extends State<BookScreen> {
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  late Future<pos> listUsers;
+  pos posobj = new pos();
+
+  @override
+  void initState() {
+    listUsers = fetchUsers();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,230 +119,109 @@ class _BookScreenState extends State<BookScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 55.0,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Container(
-              child: Text('کتاب منتخب کریں',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontFamily: 'NotoNastaliqUrdu'
-              ),)
-            ),
-          ),
-          SizedBox(height: 50,),
-          Container(
-            child:  GridView.count(
-              crossAxisCount: 3,
-              padding: EdgeInsets.only(left: 30, right: 30, top: 30,bottom: 10),
-              shrinkWrap: true,
-              children:[
-                GestureDetector(
-                  onTap: () async {
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.setString('mainbook', "سنن أبي داؤد");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'سنن أبي داؤد')));
-                  },
+      body: FutureBuilder<pos>(
+        future: listUsers,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            posobj = snapshot.data!;
+
+
+            print('yes present');
+
+            return Column(
+              children: [
+                SizedBox(height:55.0,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Color.fromRGBO(230, 230, 230, 0.5)),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: 35,
-                          height: 25,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/forma_1.png'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),Text("سنن أبي داؤد", style:TextStyle(color: Colors.black, fontSize: 12.0))
-                      ],
+                      child: Text('کتاب منتخب کریں',
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            fontFamily: 'NotoNastaliqUrdu'
+                        ),)
+                  ),
+                ),
+                SizedBox(height: 120,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: Container(
+                    height: 300,
+                    width: double.maxFinite,
+                    child:  Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3),
+                        itemCount: posobj.data?.length,
+                        itemBuilder: (context, index) {
+                          if (posobj.data?.length != 0) {
+                            return GestureDetector(
+                              onTap: () async {
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                prefs.setString('mainbook', posobj.data![index].HadithBookNameUrdu.toString());
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) => SubBookScreen1(name: posobj.data![index].HadithBookNameUrdu.toString())));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color.fromRGBO(230, 230, 230, 0.5)),
+                                  color: Colors.white,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      width: 35,
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/images/forma_1.png'),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),Text(posobj.data![index].HadithBookNameUrdu.toString(), style:TextStyle(color: Colors.black, fontSize: 12.0))
+                                  ],
+                                ),
+                              ),
+                            );
+                          } else
+                            return Container();
+                        },
+                      ),
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () async{
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.setString('mainbook', "صحيح مسلم");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'صحيح مسلم')));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color.fromRGBO(230, 230, 230, 0.5)),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: 35,
-                          height: 25,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/forma_1.png'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),Text("صحيح مسلم", style:TextStyle(color: Colors.black, fontSize: 12.0))
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: ()async{
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.setString('mainbook', "صحیح بخاری");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'صحیح بخاری ')));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color.fromRGBO(230, 230, 230, 0.5)),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: 35,
-                          height: 25,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/forma_1.png'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),Text("صحیح بخاری ", style:TextStyle(color: Colors.black, fontSize: 12.0))
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: ()async{
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.setString('mainbook', "سنن ابن ماجه");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'سنن ابن ماجه')));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color.fromRGBO(230, 230, 230, 0.5)),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: 35,
-                          height: 25,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/forma_1.png'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),Text("سنن ابن ماجه", style:TextStyle(color: Colors.black, fontSize: 12.0))
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: ()async{
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.setString('mainbook', "سنن النسائي");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'سنن النسائي')));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color.fromRGBO(230, 230, 230, 0.5)),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: 35,
-                          height: 25,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/forma_1.png'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),Text("سنن النسائي", style:TextStyle(color: Colors.black, fontSize: 12.0))
-                      ],
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: ()async{
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.setString('mainbook', "جامع الترمذي");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => SubBookScreen1(name: 'جامع الترمذي')));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color.fromRGBO(230, 230, 230, 0.5)),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: 35,
-                          height: 25,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/forma_1.png'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),Text("جامع الترمذي", style:TextStyle(color: Colors.black, fontSize: 12.0))
-                      ],
+                Expanded(
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Container(
+                      width: double.maxFinite,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                              'assets/images/layer_1699.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ],
-
-            ),
-          ),
-          Expanded(
-            child: Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Container(
-                width: double.maxFinite,
-                height: 130,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                        'assets/images/layer_1699.png'),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+            );
+          } else if (snapshot.hasError) {
+            return Center( child: Text('${snapshot.error}'));
+          }
+          return Center(
+            child: CircularProgressIndicator(backgroundColor: Colors.green),
+          );
+        },
+      )
     );
   }
+
+
 
 
 
@@ -489,3 +379,67 @@ class _BookScreenState extends State<BookScreen> {
     );
   }
 }
+
+
+
+
+
+Future<pos> fetchUsers() async {
+  try {
+    Response response = await Dio().get('https://api.mohaddis.com/api/books?type=json');
+    if (response.statusCode == 200) {
+      print(response.data.toString());
+
+      return pos.fromJson(response.data);;
+    } else {
+      throw Exception('Failed to load users');
+    }
+  } catch (e) {
+    print(e);
+    throw Exception('Failed to load users');
+  }
+}
+
+
+
+
+class pos {
+  final List<Data>? data;
+
+  pos({this.data});
+
+  factory pos.fromJson(List<dynamic> parsedJson){
+
+    List<Data> data = <Data>[];
+    print(data.runtimeType);
+    data = parsedJson.map((i)=>Data.fromJson(i)).toList();
+
+
+    return pos(
+        data: data
+
+    );
+  }
+}
+
+
+class Data {
+  final String? HadithBookID;
+  final String? HadithBookName;
+  final String? HadithBookNameEng;
+  final String? HadithBookNameUrdu;
+
+  Data({this.HadithBookID, this.HadithBookName, this.HadithBookNameEng,this.HadithBookNameUrdu});
+
+  factory Data.fromJson(Map<String, dynamic> parsedJson){
+    return Data(
+        HadithBookID:parsedJson['HadithBookID'].toString(),
+        HadithBookName:parsedJson['HadithBookName'],
+        HadithBookNameEng:parsedJson['HadithBookNameEng'].toString(),
+        HadithBookNameUrdu:parsedJson['HadithBookNameUrdu'].toString()
+    );
+  }
+
+
+}
+

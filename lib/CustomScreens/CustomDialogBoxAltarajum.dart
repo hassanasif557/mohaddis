@@ -3,28 +3,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mohaddis/ModelClasses/AlhukmModel.dart';
 
+import '../ModelClasses/AltarajumModel.dart';
 
-class CustomDialogBoxAlHukm extends StatefulWidget {
-  final List<AlhukmModel> alhukmModel;
+
+class CustomDialogBoxAltarajum extends StatefulWidget {
+  final AltarajumModel altarajumModel;
   final String title;
 
-  const CustomDialogBoxAlHukm({
+  const CustomDialogBoxAltarajum({
     Key? key,
-    required this.alhukmModel,
+    required this.altarajumModel,
     required this.title,
   }) : super(key: key);
 
   @override
-  _CustomDialogBoxAlHukmState createState() => _CustomDialogBoxAlHukmState();
+  _CustomDialogBoxAltarajumState createState() => _CustomDialogBoxAltarajumState();
 }
 
-class _CustomDialogBoxAlHukmState extends State<CustomDialogBoxAlHukm> {
-  List<AlhukmModel> _list = [];
+class _CustomDialogBoxAltarajumState extends State<CustomDialogBoxAltarajum> {
+  late AltarajumModel altarajumModel;
   int tabnumber = 2;
 
   @override
   void initState() {
-    _list = widget.alhukmModel;
+    altarajumModel = widget.altarajumModel;
     // TODO: implement initState
     super.initState();
   }
@@ -79,17 +81,17 @@ class _CustomDialogBoxAlHukmState extends State<CustomDialogBoxAlHukm> {
                         children: [
                           Center(
                               child: Padding(
-                            padding: const EdgeInsets.only(top: 3.0, left: 45.0),
-                            child: DefaultTextStyle(
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.white,
-                                  fontFamily: 'NotoNastaliqUrdu'),
-                              child: Text(
-                                widget.title.toString(),
-                              ),
-                            ),
-                          )),
+                                padding: const EdgeInsets.only(top: 3.0, left: 45.0),
+                                child: DefaultTextStyle(
+                                  style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.white,
+                                      fontFamily: 'NotoNastaliqUrdu'),
+                                  child: Text(
+                                    widget.title.toString(),
+                                  ),
+                                ),
+                              )),
                         ],
                       ),
                     ),
@@ -127,60 +129,60 @@ class _CustomDialogBoxAlHukmState extends State<CustomDialogBoxAlHukm> {
                     children: [
                       tabnumber == 1
                           ? Expanded(
-                              child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                bottom: BorderSide(
-                                  //                   <--- right side
-                                  color: Color.fromARGB(255, 37, 160, 75),
-                                  width: 2.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    //                   <--- right side
+                                    color: Color.fromARGB(255, 37, 160, 75),
+                                    width: 2.0,
+                                  ),
+                                )),
+                            child: Padding(
+                              padding:
+                              const EdgeInsets.symmetric(vertical: 15.0),
+                              child: Center(
+                                  child: DefaultTextStyle(
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14.0,
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          tabnumber = 1;
+                                        });
+                                      },
+                                      child: Text(
+                                        '2',
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                          ))
+                          : Expanded(
+                        child: Padding(
+                          padding:
+                          const EdgeInsets.symmetric(vertical: 15.0),
+                          child: Center(
+                              child: DefaultTextStyle(
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14.0,
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      tabnumber = 1;
+                                    });
+                                  },
+                                  child: Text(
+                                    '2',
+                                  ),
                                 ),
                               )),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15.0),
-                                child: Center(
-                                    child: DefaultTextStyle(
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        tabnumber = 1;
-                                      });
-                                    },
-                                    child: Text(
-                                      'الحکم التفصیلی',
-                                    ),
-                                  ),
-                                )),
-                              ),
-                            ))
-                          : Expanded(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15.0),
-                                child: Center(
-                                    child: DefaultTextStyle(
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14.0,
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        tabnumber = 1;
-                                      });
-                                    },
-                                    child: Text(
-                                      'الحکم التفصیلی',
-                                    ),
-                                  ),
-                                )),
-                              ),
-                            ),
+                        ),
+                      ),
                       tabnumber == 2
                           ? Expanded(
                           child: Container(
@@ -208,7 +210,7 @@ class _CustomDialogBoxAlHukmState extends State<CustomDialogBoxAlHukm> {
                                         });
                                       },
                                       child: Text(
-                                        'الحكم على الحديث',
+                                        '1',
                                       ),
                                     ),
                                   )),
@@ -231,7 +233,7 @@ class _CustomDialogBoxAlHukmState extends State<CustomDialogBoxAlHukm> {
                                     });
                                   },
                                   child: Text(
-                                    'الحكم على الحديث',
+                                    '1',
                                   ),
                                 ),
                               )),
@@ -244,102 +246,32 @@ class _CustomDialogBoxAlHukmState extends State<CustomDialogBoxAlHukm> {
               padding: const EdgeInsets.all(20.0),
               child: tabnumber == 2
                   ? Container(
-                      height: 400,
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Expanded(
-                                  child: DefaultTextStyle(
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Color.fromARGB(255, 37, 160, 75),
-                                    ),
-                                    child: Text(
-                                      'الحكم',
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      DefaultTextStyle(
-                                        style: TextStyle(
-                                          fontSize: 12.0,
-                                          color: Color.fromARGB(255, 37, 160, 75),
-                                        ),
-                                        child: Text(
-                                          'الحكم على الحديث',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: ListView.builder(
-                                  itemCount: _list.length,
-                                  itemBuilder: (BuildContext ctxt, int Index) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                        bottom: BorderSide(
-                                          //                   <--- right side
-                                          color: Colors.black12,
-                                          width: 1.0,
-                                        ),
-                                      )),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-                                          Expanded(
-                                            child: DefaultTextStyle(
-                                              style: TextStyle(
-                                                fontSize: 12.0,
-                                                color: Colors.grey,
-                                              ),
-                                              child: Text(
-                                                _list[Index].hukm_name,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                DefaultTextStyle(
-                                                  style: TextStyle(
-                                                    fontSize: 12.0,
-                                                    color: Colors.black,
-                                                  ),
-                                                  child: Text(
-                                                    _list[Index].hukm,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }),
-                            )),
-                          ],
+                  height: 400,
+                  width: double.maxFinite,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: DefaultTextStyle(
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.black,
                         ),
-                      ))
+                        child: Text(altarajumModel.tab1)),
+                  ))
                   : Container(
-                      height: 400,
-                      color: Colors.grey,
-                    ),
+                height: 400,
+                width: double.maxFinite,
+                color: Colors.grey,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: DefaultTextStyle(
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.black,
+                      ),
+                      child: Text(altarajumModel.tab2)),
+                ),
+              ),
             ),
           ],
         ),

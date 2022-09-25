@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../CustomScreens/DropDownWidget.dart';
+import '../FrontEnd/SettingScreen.dart';
 
 class Tarajum extends StatefulWidget {
-  const Tarajum({Key? key}) : super(key: key);
+
+  final List<TranslationSettings>? settings;
+  final List<String> list;
+  const Tarajum({Key? key, required this.settings, required this.list}) : super(key: key);
 
   @override
   State<Tarajum> createState() => _TarajumState();
@@ -9,13 +16,81 @@ class Tarajum extends StatefulWidget {
 
 class _TarajumState extends State<Tarajum> {
 
-  String dropdownvalue1 = 'احادیث مبارکہ کو چار طریقوں سے';
-  String dropdownvalue2 = 'احادیث مبارکہ کو چار طریقوں سے';
-  String dropdownvalue3 = 'احادیث مبارکہ کو چار طریقوں سے';
-  String dropdownvalue4 = 'احادیث مبارکہ کو چار طریقوں سے';
-  String dropdownvalue5 = 'احادیث مبارکہ کو چار طریقوں سے';
-  String dropdownvalue6 = 'احادیث مبارکہ کو چار طریقوں سے';
-  List<String> spinnerItems = ['احادیث مبارکہ کو چار طریقوں سے', 'احادیث مبارکہ', 'احادیث مبارکہ کو', 'احادیث مبارکہ کو چار', 'احادیث مبارکہ کو چار طریقوں'];
+  late String dropdownvalue1;
+  late String dropdownvalue2;
+  late String dropdownvalue3;
+  late String dropdownvalue4;
+  late String dropdownvalue5;
+  late String dropdownvalue6;
+
+  List<String> spinnerItems1 = [];
+  List<String> spinnerItems2 = [];
+  List<String> spinnerItems3 = [];
+  List<String> spinnerItems4 = [];
+  List<String> spinnerItems5 = [];
+  List<String> spinnerItems6 = [];
+
+
+
+  @override
+  void initState() {
+
+    for(int i=0;i<widget.settings!.length;i++)
+    {
+      if(widget.settings![i].bookID == 1)
+      {
+        spinnerItems1.add(widget.settings![i].name.toString());
+      }
+    }
+    for(int i=0;i<widget.settings!.length;i++)
+    {
+      if(widget.settings![i].bookID == 2)
+      {
+        spinnerItems2.add(widget.settings![i].name.toString());
+      }
+    }
+    for(int i=0;i<widget.settings!.length;i++)
+    {
+      if(widget.settings![i].bookID == 3)
+      {
+        spinnerItems3.add(widget.settings![i].name.toString());
+      }
+    }
+    for(int i=0;i<widget.settings!.length;i++)
+    {
+      if(widget.settings![i].bookID == 4)
+      {
+        spinnerItems4.add(widget.settings![i].name.toString());
+      }
+    }
+    for(int i=0;i<widget.settings!.length;i++)
+    {
+      if(widget.settings![i].bookID == 5)
+      {
+        spinnerItems5.add(widget.settings![i].name.toString());
+      }
+    }
+    for(int i=0;i<widget.settings!.length;i++)
+    {
+      if(widget.settings![i].bookID == 6)
+      {
+        spinnerItems6.add(widget.settings![i].name.toString());
+      }
+    }
+
+
+    dropdownvalue1 = widget.list[0];
+    dropdownvalue2 = widget.list[1];
+    dropdownvalue3 = widget.list[2];
+    dropdownvalue4 = widget.list[3];
+    dropdownvalue5 = widget.list[4];
+    dropdownvalue6 = widget.list[5];
+
+
+
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,35 +122,14 @@ class _TarajumState extends State<Tarajum> {
                           padding: const EdgeInsets.only(right: 5.0),
                           child: Align(
                             alignment: Alignment.centerRight,
-                            child: DropdownButton<String>(
-                              isExpanded: true,
-                              value: dropdownvalue1,
-                              style: TextStyle(
-                                  fontSize: 10.0,
-                                  color: Colors.grey[700],
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'NotoNastaliqUrdu'),
-                              onChanged: (String? data) {
-                                setState(() {
-                                  dropdownvalue1 = data!;
-                                });
+                            child: DropdownWidget(
+                              title: '',
+                              items: spinnerItems1,
+                              currentItem: spinnerItems1.contains(dropdownvalue1) ? dropdownvalue1 : spinnerItems1[0],
+                              hintText: 'hint',
+                              itemCallBack: (String status) {
+                                this.dropdownvalue1 = status;
                               },
-                              items: spinnerItems
-                                  .map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(value,
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          fontSize: 10.0,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'NotoNastaliqUrdu'),),
-                                  ),
-                                );
-                              }).toList(),
                             ),
                           ),
                         ),
@@ -131,35 +185,14 @@ class _TarajumState extends State<Tarajum> {
                           padding: const EdgeInsets.only(right: 5.0),
                           child: Align(
                             alignment: Alignment.centerRight,
-                            child: DropdownButton<String>(
-                              isExpanded: true,
-                              value: dropdownvalue2,
-                              style: TextStyle(
-                                  fontSize: 10.0,
-                                  color: Colors.grey[700],
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'NotoNastaliqUrdu'),
-                              onChanged: (String? data) {
-                                setState(() {
-                                  dropdownvalue2 = data!;
-                                });
+                            child: DropdownWidget(
+                              title: '',
+                              items: spinnerItems2,
+                              currentItem: spinnerItems2.contains(dropdownvalue2) ? dropdownvalue2 : spinnerItems2[0],
+                              hintText: 'hint',
+                              itemCallBack: (String status) {
+                                this.dropdownvalue2 = status;
                               },
-                              items: spinnerItems
-                                  .map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(value,
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          fontSize: 10.0,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'NotoNastaliqUrdu'),),
-                                  ),
-                                );
-                              }).toList(),
                             ),
                           ),
                         ),
@@ -215,35 +248,14 @@ class _TarajumState extends State<Tarajum> {
                           padding: const EdgeInsets.only(right: 5.0),
                           child: Align(
                             alignment: Alignment.centerRight,
-                            child: DropdownButton<String>(
-                              isExpanded: true,
-                              value: dropdownvalue3,
-                              style: TextStyle(
-                                  fontSize: 10.0,
-                                  color: Colors.grey[700],
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'NotoNastaliqUrdu'),
-                              onChanged: (String? data) {
-                                setState(() {
-                                  dropdownvalue3 = data!;
-                                });
+                            child: DropdownWidget(
+                              title: '',
+                              items: spinnerItems3,
+                              currentItem: spinnerItems3.contains(dropdownvalue3) ? dropdownvalue3 : spinnerItems3[0],
+                              hintText: 'hint',
+                              itemCallBack: (String status) {
+                                this.dropdownvalue3 = status;
                               },
-                              items: spinnerItems
-                                  .map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(value,
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          fontSize: 10.0,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'NotoNastaliqUrdu'),),
-                                  ),
-                                );
-                              }).toList(),
                             ),
                           ),
                         ),
@@ -299,35 +311,14 @@ class _TarajumState extends State<Tarajum> {
                           padding: const EdgeInsets.only(right: 5.0),
                           child: Align(
                             alignment: Alignment.centerRight,
-                            child: DropdownButton<String>(
-                              isExpanded: true,
-                              value: dropdownvalue4,
-                              style: TextStyle(
-                                  fontSize: 10.0,
-                                  color: Colors.grey[700],
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'NotoNastaliqUrdu'),
-                              onChanged: (String? data) {
-                                setState(() {
-                                  dropdownvalue4 = data!;
-                                });
+                            child: DropdownWidget(
+                              title: '',
+                              items: spinnerItems4,
+                              currentItem: spinnerItems4.contains(dropdownvalue4) ? dropdownvalue4 : spinnerItems4[0],
+                              hintText: 'hint',
+                              itemCallBack: (String status) {
+                                this.dropdownvalue4 = status;
                               },
-                              items: spinnerItems
-                                  .map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(value,
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          fontSize: 10.0,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'NotoNastaliqUrdu'),),
-                                  ),
-                                );
-                              }).toList(),
                             ),
                           ),
                         ),
@@ -383,35 +374,14 @@ class _TarajumState extends State<Tarajum> {
                           padding: const EdgeInsets.only(right: 5.0),
                           child: Align(
                             alignment: Alignment.centerRight,
-                            child: DropdownButton<String>(
-                              isExpanded: true,
-                              value: dropdownvalue5,
-                              style: TextStyle(
-                                  fontSize: 10.0,
-                                  color: Colors.grey[700],
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'NotoNastaliqUrdu'),
-                              onChanged: (String? data) {
-                                setState(() {
-                                  dropdownvalue5 = data!;
-                                });
+                            child: DropdownWidget(
+                              title: '',
+                              items: spinnerItems5,
+                              currentItem: spinnerItems5.contains(dropdownvalue5) ? dropdownvalue5 : spinnerItems5[0],
+                              hintText: 'hint',
+                              itemCallBack: (String status) {
+                                this.dropdownvalue5 = status;
                               },
-                              items: spinnerItems
-                                  .map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(value,
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          fontSize: 10.0,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'NotoNastaliqUrdu'),),
-                                  ),
-                                );
-                              }).toList(),
                             ),
                           ),
                         ),
@@ -467,35 +437,14 @@ class _TarajumState extends State<Tarajum> {
                           padding: const EdgeInsets.only(right: 5.0),
                           child: Align(
                             alignment: Alignment.centerRight,
-                            child: DropdownButton<String>(
-                              isExpanded: true,
-                              value: dropdownvalue6,
-                              style: TextStyle(
-                                  fontSize: 10.0,
-                                  color: Colors.grey[700],
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'NotoNastaliqUrdu'),
-                              onChanged: (String? data) {
-                                setState(() {
-                                  dropdownvalue6 = data!;
-                                });
+                            child: DropdownWidget(
+                              title: '',
+                              items: spinnerItems6,
+                              currentItem: spinnerItems6.contains(dropdownvalue6) ? dropdownvalue6 : spinnerItems6[0],
+                              hintText: 'hint',
+                              itemCallBack: (String status) {
+                                this.dropdownvalue6 = status;
                               },
-                              items: spinnerItems
-                                  .map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(value,
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          fontSize: 10.0,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'NotoNastaliqUrdu'),),
-                                  ),
-                                );
-                              }).toList(),
                             ),
                           ),
                         ),
@@ -529,36 +478,47 @@ class _TarajumState extends State<Tarajum> {
         Padding(
           padding: const EdgeInsets.only(
               left: 20.0, right: 20.0, top: 10.0, bottom: 10.0),
-          child: Container(
-            width: double.maxFinite,
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          border: Border.all(color: Colors.black, width: 1.0)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Center(
-                          child: Text(
-                            'محفوظ کریں',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 10.0,
-                                color: Colors.black,
-                                fontFamily: 'NotoNastaliqUrdu'),
+          child: GestureDetector(
+            onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.setString('tarajum1', dropdownvalue1);
+              prefs.setString('tarajum2', dropdownvalue2);
+              prefs.setString('tarajum3', dropdownvalue3);
+              prefs.setString('tarajum4', dropdownvalue4);
+              prefs.setString('tarajum5', dropdownvalue5);
+              prefs.setString('tarajum6', dropdownvalue6);
+            },
+            child: Container(
+              width: double.maxFinite,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            border: Border.all(color: Colors.black, width: 1.0)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Center(
+                            child: Text(
+                              'محفوظ کریں',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 10.0,
+                                  color: Colors.black,
+                                  fontFamily: 'NotoNastaliqUrdu'),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
