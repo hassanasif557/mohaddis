@@ -51,7 +51,7 @@ class _BookScreenState extends State<BookScreen> {
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20.0,top: 10.0),
+                  padding: const EdgeInsets.only(left: 20.0,top: 20.0),
                   child: Column(
                     children: [
                       GestureDetector(
@@ -74,24 +74,20 @@ class _BookScreenState extends State<BookScreen> {
                   ),
                 ),
                 Expanded(
-                  child: Column(
-                    children: [
-                      Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 6.0),
-                            child: Text('کتب احادیث',
-                              style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.white,
-                                  fontFamily: 'NotoNastaliqUrdu'
-                              ),),
-                          )
-                      ),
-                    ],
+                  child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 13.0, horizontal: 10.0),
+                        child: Text('کتب احادیث',
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.white,
+                              fontFamily: 'NotoNastaliqUrdu'
+                          ),),
+                      )
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 20.0,top: 20.0),
+                  padding: const EdgeInsets.only(right: 20.0,top: 30.0),
                   child: Column(
                     children: [
                       GestureDetector(
@@ -158,9 +154,9 @@ class _BookScreenState extends State<BookScreen> {
                             return GestureDetector(
                               onTap: () async {
                                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                                prefs.setString('mainbook', posobj.data![index].HadithBookNameUrdu.toString());
+                                prefs.setString('mainbookID', posobj.data![index].HadithBookID.toString());
                                 Navigator.push(context,
-                                    MaterialPageRoute(builder: (_) => SubBookScreen1(name: posobj.data![index].HadithBookNameUrdu.toString())));
+                                    MaterialPageRoute(builder: (_) => SubBookScreen1(id: posobj.data![index].HadithBookID.toString(), name: posobj.data![index].HadithBookNameUrdu.toString())));
                               },
                               child: Container(
                                 decoration: BoxDecoration(

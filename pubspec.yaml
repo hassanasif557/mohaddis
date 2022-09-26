@@ -34,6 +34,8 @@ dependencies:
   dio:
   http:
   shared_preferences:
+  flutter_widget_from_html:
+  flutter_html:
 
 
   # The following adds the Cupertino Icons fonts to your application.

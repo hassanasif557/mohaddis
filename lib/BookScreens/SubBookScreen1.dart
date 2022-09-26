@@ -1,6 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:mohaddis/BookScreens/SubBookScreen2.dart';
 import 'package:mohaddis/ChapterScreens/SubChapterScreen2.dart';
 import 'package:mohaddis/FrontEnd/HomeScreen.dart';
@@ -12,8 +14,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SubBookScreen1 extends StatefulWidget {
 
+  final String id;
   final String name;
-  const SubBookScreen1({Key? key, required this.name}) : super(key: key);
+  const SubBookScreen1({Key? key, required this.id, required this.name}) : super(key: key);
 
   @override
   State<SubBookScreen1> createState() => _SubBookScreen1State();
@@ -27,7 +30,7 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
 
   @override
   void initState() {
-    listUsers = fetchUsers();
+    listUsers = fetchUsers(widget.id);
     // TODO: implement initState
     super.initState();
   }
@@ -53,7 +56,7 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0,top: 10.0),
+                    padding: const EdgeInsets.only(left: 20.0,top: 20.0),
                     child: Column(
                       children: [
                         GestureDetector(
@@ -76,24 +79,20 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      children: [
-                        Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 6.0),
-                              child: Text(widget.name.toString(),
-                                style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.white,
-                                    fontFamily: 'NotoNastaliqUrdu'
-                                ),),
-                            )
-                        ),
-                      ],
+                    child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 13.0, horizontal: 10.0),
+                          child: Text(widget.name.toString(),
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                color: Colors.white,
+                                fontFamily: 'NotoNastaliqUrdu'
+                            ),),
+                        )
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 20.0,top: 20.0),
+                    padding: const EdgeInsets.only(right: 20.0,top: 30.0),
                     child: Column(
                       children: [
                         GestureDetector(
@@ -178,35 +177,48 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
                               ),
                               child: ListTile(
                                 leading: const Icon(Icons.arrow_back_ios_new, color: Colors.grey, size: 15.0,),
-                                title: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: Text('${posobj.data![index].name.toString()}',
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12.0,
-                                        fontFamily: 'NotoNastaliqUrdu'
-                                    ),
+                                title: Padding(
+                                  padding: const EdgeInsets.only(bottom: 15.0),
+                                  child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Html(
+                                      data: posobj.data![index].kitaabNameUrdu.toString(),
+                                      style: {
+                                        "body": Style(
+                                          fontSize: FontSize(10.0),
+                                          fontFamily: 'NotoNastaliqUrdu',
+                                        ),
+                                        "p": Style(
+                                          fontSize: FontSize(10.0),
+                                          fontFamily: 'NotoNastaliqUrdu',
+                                          margin: EdgeInsets.only(bottom: 5.0)
+                                        ),
+                                      },
+                                    )
                                   ),
                                 ),
-                                trailing: Container(
-                                  width: 15,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/icon.png'),
-                                      fit: BoxFit.fill,
+                                trailing: Padding(
+                                  padding: const EdgeInsets.only(bottom: 10.0),
+                                  child: Container(
+                                    width: 15,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/icon.png'),
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 selected: true,
                                 onTap: () async {
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('subbook1', "${posobj.data![index].name.toString()}");
+                                  prefs.setString('subbook1', "${posobj.data![index].kitaabNameUrdu.toString()}");
+                                  prefs.setString('subbook1ID', "${posobj.data![index].iDPK.toString()}");
                                   setState(() {
                                     Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) => SubBookScreen2(name: '${posobj.data![index].name.toString()}')));
+                                        MaterialPageRoute(builder: (_) => SubBookScreen2(id: '${posobj.data![index].iDPK.toString()}', name: '${posobj.data![index].kitaabNameUrdu.toString()}')));
                                   });
                                 },
                               ),
@@ -387,9 +399,9 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
 
 
 
-Future<pos> fetchUsers() async {
+Future<pos> fetchUsers(String id) async {
   try {
-    Response response = await Dio().get('https://countriesnow.space/api/v0.1/countries/positions');
+    Response response = await Dio().get('https://api.mohaddis.com/api/kutabs?type=json', queryParameters: {'BookID': id});
     if (response.statusCode == 200) {
       print(response.data.toString());
 
@@ -407,23 +419,19 @@ Future<pos> fetchUsers() async {
 
 
 class pos {
-  final bool? error;
-  final String? msg;
   final List<Data>? data;
 
-  pos({this.error, this.msg, this.data});
+  pos({this.data});
 
-  factory pos.fromJson(Map<String, dynamic> parsedJson){
+  factory pos.fromJson(List<dynamic> parsedJson){
 
-    var list = parsedJson['data'] as List;
-    print(list.runtimeType);
-    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
+    List<Data> data = <Data>[];
+    print(data.runtimeType);
+    data = parsedJson.map((i)=>Data.fromJson(i)).toList();
 
 
     return pos(
-        error: parsedJson['error'],
-        msg: parsedJson['msg'],
-        data: dataList
+        data: data
 
     );
   }
@@ -431,20 +439,37 @@ class pos {
 
 
 class Data {
-  final String? name;
-  final String? iso2;
-  final String? long;
-  final String? lat;
+  int? iD;
+  double? hiddenID;
+  int? iDPK;
+  int? bookID;
+  String? kitaabNameUrdu;
+  String? kitaabNameArabic;
+  String? kitaabTamheedArabic;
+  String? kitaabTamheedUrdu;
+  String? kitaabNameEng;
 
-  Data({this.name, this.iso2, this.long,this.lat});
+  Data(
+      {this.iD,
+        this.hiddenID,
+        this.iDPK,
+        this.bookID,
+        this.kitaabNameUrdu,
+        this.kitaabNameArabic,
+        this.kitaabTamheedArabic,
+        this.kitaabTamheedUrdu,
+        this.kitaabNameEng});
 
-  factory Data.fromJson(Map<String, dynamic> parsedJson){
-    return Data(
-        name:parsedJson['name'],
-        iso2:parsedJson['iso2'],
-        long:parsedJson['long'].toString(),
-        lat:parsedJson['lat'].toString()
-    );
+  Data.fromJson(Map<String, dynamic> json) {
+    iD = json['ID'];
+    hiddenID = json['HiddenID'];
+    iDPK = json['IDPK'];
+    bookID = json['BookID'];
+    kitaabNameUrdu = json['kitaabNameUrdu'];
+    kitaabNameArabic = json['kitaabNameArabic'];
+    kitaabTamheedArabic = json['KitaabTamheedArabic'];
+    kitaabTamheedUrdu = json['KitaabTamheedUrdu'];
+    kitaabNameEng = json['KitaabNameEng'];
   }
 
 
