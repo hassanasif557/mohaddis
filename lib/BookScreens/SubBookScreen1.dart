@@ -11,6 +11,7 @@ import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:readmore/readmore.dart';
 
 class SubBookScreen1 extends StatefulWidget {
 
@@ -178,7 +179,7 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
                               child: ListTile(
                                 leading: const Icon(Icons.arrow_back_ios_new, color: Colors.grey, size: 15.0,),
                                 title: Padding(
-                                  padding: const EdgeInsets.only(bottom: 15.0),
+                                  padding: const EdgeInsets.only(bottom: 5.0),
                                   child: Directionality(
                                     textDirection: TextDirection.rtl,
                                     child: Html(
@@ -187,11 +188,14 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
                                         "body": Style(
                                           fontSize: FontSize(10.0),
                                           fontFamily: 'NotoNastaliqUrdu',
+                                          maxLines: 1,
+                                          textOverflow: TextOverflow.ellipsis,
                                         ),
                                         "p": Style(
                                           fontSize: FontSize(10.0),
                                           fontFamily: 'NotoNastaliqUrdu',
-                                          margin: EdgeInsets.only(bottom: 5.0)
+                                          maxLines: 1,
+                                          textOverflow: TextOverflow.ellipsis,
                                         ),
                                       },
                                     )
@@ -214,8 +218,8 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
                                 selected: true,
                                 onTap: () async {
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('subbook1', "${posobj.data![index].kitaabNameUrdu.toString()}");
-                                  prefs.setString('subbook1ID', "${posobj.data![index].iDPK.toString()}");
+                                  prefs.setString('kitaab', "${posobj.data![index].kitaabNameUrdu.toString()}");
+                                  prefs.setString('kitaabID', "${posobj.data![index].iDPK.toString()}");
                                   setState(() {
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (_) => SubBookScreen2(id: '${posobj.data![index].iDPK.toString()}', name: '${posobj.data![index].kitaabNameUrdu.toString()}')));

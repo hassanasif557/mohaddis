@@ -27,8 +27,39 @@ class _SubBookScreen2State extends State<SubBookScreen2> {
   late Future<pos> listUsers;
   pos posobj = new pos();
 
+  List<String> dropdownTarakeemList = [];
+  List<String> dropdownTarajumList = [];
+  List<String> dropdownHukamList = [];
+
+  getSP() async{
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    dropdownTarakeemList.add(prefs.getString('tarakeem1').toString());
+    dropdownTarakeemList.add(prefs.getString('tarakeem2').toString());
+    dropdownTarakeemList.add(prefs.getString('tarakeem3').toString());
+    dropdownTarakeemList.add(prefs.getString('tarakeem4').toString());
+    dropdownTarakeemList.add(prefs.getString('tarakeem5').toString());
+    dropdownTarakeemList.add(prefs.getString('tarakeem6').toString());
+
+    dropdownTarajumList.add(prefs.getString('tarajum1').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum2').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum3').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum4').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum5').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum6').toString());
+
+    dropdownHukamList.add(prefs.getString('hukam1').toString());
+    dropdownHukamList.add(prefs.getString('hukam2').toString());
+    dropdownHukamList.add(prefs.getString('hukam3').toString());
+    dropdownHukamList.add(prefs.getString('hukam4').toString());
+    dropdownHukamList.add(prefs.getString('hukam5').toString());
+    dropdownHukamList.add(prefs.getString('hukam6').toString());
+
+  }
+
   @override
   void initState() {
+    getSP();
     listUsers = fetchUsers(widget.id);
     // TODO: implement initState
     super.initState();
@@ -80,13 +111,28 @@ class _SubBookScreen2State extends State<SubBookScreen2> {
                   Expanded(
                     child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 13.0, horizontal: 10.0),
-                          child: Text(widget.name.toString(),
-                            style: TextStyle(
-                                fontSize: 14.0,
+                          padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                          child: Html(
+                            data: widget.name.toString(),
+                            style: {
+                              "body": Style(
+                                fontSize: FontSize(14.0),
+                                fontFamily: 'NotoNastaliqUrdu',
                                 color: Colors.white,
-                                fontFamily: 'NotoNastaliqUrdu'
-                            ),),
+                                  textAlign: TextAlign.center,
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
+                              ),
+                              "p": Style(
+                                  fontSize: FontSize(14.0),
+                                  fontFamily: 'NotoNastaliqUrdu',
+                                color: Colors.white,
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
+                              ),
+                            },
+                          )
                         )
                     ),
                   ),
@@ -176,25 +222,25 @@ class _SubBookScreen2State extends State<SubBookScreen2> {
                               ),
                               child: ListTile(
                                 leading: const Icon(Icons.arrow_back_ios_new, color: Colors.grey, size: 15.0,),
-                                title: Padding(
-                                  padding: const EdgeInsets.only(bottom: 15.0),
-                                  child: Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: Html(
-                                      data: posobj.data![index].baabNameUrdu.toString(),
-                                      style: {
-                                        "body": Style(
+                                title: Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: Html(
+                                    data: posobj.data![index].baabNameUrdu.toString(),
+                                    style: {
+                                      "body": Style(
+                                        fontSize: FontSize(10.0),
+                                        fontFamily: 'NotoNastaliqUrdu',
+                                        maxLines: 1,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ),
+                                      "p": Style(
                                           fontSize: FontSize(10.0),
                                           fontFamily: 'NotoNastaliqUrdu',
-                                        ),
-                                        "p": Style(
-                                            fontSize: FontSize(10.0),
-                                            fontFamily: 'NotoNastaliqUrdu',
-                                            margin: EdgeInsets.only(bottom: 5.0)
-                                        ),
-                                      },
-                                    )
-                                  ),
+                                        maxLines: 1,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ),
+                                    },
+                                  )
                                 ),
                                 trailing: Padding(
                                   padding: const EdgeInsets.only(bottom: 10.0),
@@ -213,11 +259,14 @@ class _SubBookScreen2State extends State<SubBookScreen2> {
                                 selected: true,
                                 onTap: () async {
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('subbook1', "${posobj.data![index].baabNameUrdu.toString()}");
-                                  prefs.setString('subbook1ID', "${posobj.data![index].iDPK.toString()}");
+                                  prefs.setString('baab', "${posobj.data![index].baabNameUrdu.toString()}");
+                                  prefs.setString('baabID', "${posobj.data![index].iDPK.toString()}");
+
+                                  String mainbookID = prefs.getString('mainbookID').toString();
+
                                   setState(() {
                                     Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) => SubBookScreen3(id: '${posobj.data![index].iDPK.toString()}', name: '${posobj.data![index].baabNameUrdu.toString()}')));
+                                        MaterialPageRoute(builder: (_) => SubBookScreen3(id: '${posobj.data![index].iDPK.toString()}', name: '${posobj.data![index].baabNameUrdu.toString()}', defaultTarakeem: dropdownTarakeemList, defaultTranslation: dropdownTarajumList, defaultHashiya: dropdownTarajumList, defaultHukam: dropdownHukamList, mainbookID: mainbookID)));
 
                                   });
                                 },

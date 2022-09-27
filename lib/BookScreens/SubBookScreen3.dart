@@ -11,11 +11,20 @@ import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../CustomScreens/DropDownWidget2.dart';
+
+
+
 class SubBookScreen3 extends StatefulWidget {
 
   final String id;
   final String name;
-  const SubBookScreen3({Key? key, required this.id, required this.name}) : super(key: key);
+  final List<String> defaultTarakeem;
+  final List<String> defaultTranslation;
+  final List<String> defaultHashiya;
+  final List<String> defaultHukam;
+  final String mainbookID;
+  const SubBookScreen3({Key? key, required this.id, required this.name, required this.defaultTarakeem, required this.defaultTranslation, required this.defaultHashiya, required this.defaultHukam, required this.mainbookID}) : super(key: key);
 
   @override
   State<SubBookScreen3> createState() => _SubBookScreen3State();
@@ -24,12 +33,18 @@ class SubBookScreen3 extends StatefulWidget {
 class _SubBookScreen3State extends State<SubBookScreen3> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<String> spinnerItems1 = ['1','2','3','4','5','6','7','8','9'];
+  List<String> spinnerItems2 = ['20','30','40','50','60','70','80','90','100'];
+  String dropdownvalue1 = '1';
+  String dropdownvalue2 = '20';
+
   late Future<pos> listUsers;
   pos posobj = new pos();
 
   @override
   void initState() {
-    listUsers = fetchUsers(widget.id);
+    print(widget.defaultTarakeem.length);
+    listUsers = fetchUsers(widget.id,widget.defaultTarakeem[int.parse(widget.mainbookID)-1],widget.defaultTranslation[int.parse(widget.mainbookID)-1],widget.defaultHashiya[int.parse(widget.mainbookID)-1],widget.defaultHukam[int.parse(widget.mainbookID)-1],'0','20');
     // TODO: implement initState
     super.initState();
   }
@@ -80,13 +95,28 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                   Expanded(
                     child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 13.0, horizontal: 10.0),
-                          child: Text(widget.name.toString(),
-                            style: TextStyle(
-                                fontSize: 14.0,
-                                color: Colors.white,
-                                fontFamily: 'NotoNastaliqUrdu'
-                            ),),
+                          padding: const EdgeInsets.symmetric( horizontal: 10.0),
+                          child: Html(
+                            data: widget.name.toString(),
+                            style: {
+                              "body": Style(
+                                  fontSize: FontSize(14.0),
+                                  color: Colors.white,
+                                  fontFamily: 'NotoNastaliqUrdu',
+                                  textAlign: TextAlign.center,
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
+                              ),
+                              "p": Style(
+                                  fontSize: FontSize(14.0),
+                                  fontFamily: 'NotoNastaliqUrdu',
+                                  color: Colors.white,
+                                  textAlign: TextAlign.center,
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
+                              ),
+                            },
+                          )
                         )
                     ),
                   ),
@@ -161,6 +191,140 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+                    child: Container(
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3),
+
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                color: Colors.transparent,
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(0, 2),
+                                    blurRadius: 10,
+                                    color: Color(0x19000000),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Container(
+                                        width: 50,
+                                        height: 50,
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: DropDownWidget2(
+                                            title: 'page',
+                                            items: spinnerItems1,
+                                            currentItem: spinnerItems1.contains(dropdownvalue1) ? dropdownvalue1 : spinnerItems1[0],
+                                            hintText: 'hint',
+                                            itemCallBack: (String status) {
+                                              this.dropdownvalue1 = status;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Container(
+                                        width: 100,
+                                        height: 50,
+                                        child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text('صفحہ نمبر',
+                                            style: TextStyle(
+                                              fontFamily: 'NotoNastaliqUrdu',
+                                              fontSize: 10.0
+                                            ),)
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ),
+                          Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: Colors.transparent,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(0, 2),
+                                      blurRadius: 10,
+                                      color: Color(0x19000000),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  children: [
+
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10.0),
+                                      child: Directionality(
+                                        textDirection: TextDirection.rtl,
+                                        child: Container(
+                                          width: 50,
+                                          height: 50,
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: DropDownWidget2(
+                                              title: 'page',
+                                              items: spinnerItems2,
+                                              currentItem: spinnerItems2.contains(dropdownvalue2) ? dropdownvalue2 : spinnerItems2[0],
+                                              hintText: 'hint',
+                                              itemCallBack: (String status) {
+                                                this.dropdownvalue2 = status;
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10.0),
+                                      child: Directionality(
+                                        textDirection: TextDirection.rtl,
+                                        child: Container(
+                                          width: 100,
+                                          height: 50,
+                                          child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text('تعداد',
+                                                style: TextStyle(
+                                                    fontFamily: 'NotoNastaliqUrdu',
+                                                    fontSize: 10.0
+                                                ),)
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                          ),
+                        ],
+                      )
+                    ),
+                  ),
                   Expanded(
                     child: ListView.builder(
                         shrinkWrap: true,
@@ -176,25 +340,25 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                               ),
                               child: ListTile(
                                 leading: const Icon(Icons.arrow_back_ios_new, color: Colors.grey, size: 15.0,),
-                                title: Padding(
-                                  padding: const EdgeInsets.only(bottom: 15.0),
-                                  child: Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: Html(
-                                      data: posobj.data![index].baabNameUrdu.toString(),
-                                      style: {
-                                        "body": Style(
+                                title: Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: Html(
+                                    data: posobj.data![index].baabNameUrdu.toString(),
+                                    style: {
+                                      "body": Style(
+                                        fontSize: FontSize(10.0),
+                                        fontFamily: 'NotoNastaliqUrdu',
+                                        maxLines: 1,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ),
+                                      "p": Style(
                                           fontSize: FontSize(10.0),
                                           fontFamily: 'NotoNastaliqUrdu',
-                                        ),
-                                        "p": Style(
-                                            fontSize: FontSize(10.0),
-                                            fontFamily: 'NotoNastaliqUrdu',
-                                            margin: EdgeInsets.only(bottom: 5.0)
-                                        ),
-                                      },
-                                    )
-                                  ),
+                                        maxLines: 1,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ),
+                                    },
+                                  )
                                 ),
                                 trailing: Padding(
                                   padding: const EdgeInsets.only(bottom: 10.0),
@@ -215,11 +379,11 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
                                   prefs.setString('subbook1', "${posobj.data![index].baabNameUrdu.toString()}");
                                   prefs.setString('subbook1ID', "${posobj.data![index].iDPK.toString()}");
-                                  setState(() {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) => SubBookScreen3(id: '${posobj.data![index].iDPK.toString()}', name: '${posobj.data![index].baabNameUrdu.toString()}')));
-
-                                  });
+                                  // setState(() {
+                                  //   Navigator.push(context,
+                                  //       MaterialPageRoute(builder: (_) => SubBookScreen3(id: '${posobj.data![index].iDPK.toString()}', name: '${posobj.data![index].baabNameUrdu.toString()}')));
+                                  //
+                                  // });
                                 },
                               ),
                             ),
@@ -399,9 +563,9 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
 
 
 
-Future<pos> fetchUsers(String id) async {
+Future<pos> fetchUsers(String id, String tarakeem, String translation, String hashiya, String hukam, String pagenumber, String number) async {
   try {
-    Response response = await Dio().get('https://api.mohaddis.com/api/abwaabs?type=json', queryParameters: {'KitaabID': '2345'});
+    Response response = await Dio().get('https://api.mohaddis.com/api/ahadith?type=json', queryParameters: {'baabID': id, 'DefaulTarqeem':tarakeem, 'DefaultTranslation':translation, 'DefaultHashiya':hashiya, 'DefaultHukam':hukam, 'OffSet': pagenumber, 'PageSize': number});
     if (response.statusCode == 200) {
       print(response.data.toString());
 

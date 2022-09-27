@@ -36,6 +36,7 @@ dependencies:
   shared_preferences:
   flutter_widget_from_html:
   flutter_html:
+  readmore:
 
 
   # The following adds the Cupertino Icons fonts to your application.
@@ -72,6 +73,14 @@ flutter:
         - asset: fonts/NotoNastaliqUrdu-Bold.ttf
           style: italic
           weight: 900
+    - family: JNNK
+      fonts:
+        - asset: fonts/JNNK.ttf
+    - family: JNNR
+      fonts:
+        - asset: fonts/JNNR.ttf
+          weight: 900
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
