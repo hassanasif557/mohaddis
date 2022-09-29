@@ -238,7 +238,9 @@ class _SettingScreenState extends State<SettingScreen> {
 
 Future<pos> fetchUsers() async {
   try {
-    Response response = await Dio().get('https://api.mohaddis.com/api/defaultsettings?type=json');
+    Response response = await Dio().get('https://api.mohaddis.com/api/defaultsettings?type=json',options: Options(
+      headers: {"X-ApiKey": "dztydmpy986xwKgCxHQHMjx1qHRrzMQN"},
+    ));
     if (response.statusCode == 200) {
       print(response.data.toString());
 

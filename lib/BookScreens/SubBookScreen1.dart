@@ -179,7 +179,7 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
                               child: ListTile(
                                 leading: const Icon(Icons.arrow_back_ios_new, color: Colors.grey, size: 15.0,),
                                 title: Padding(
-                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                  padding: const EdgeInsets.only(bottom: 10.0),
                                   child: Directionality(
                                     textDirection: TextDirection.rtl,
                                     child: Html(
@@ -405,7 +405,9 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
 
 Future<pos> fetchUsers(String id) async {
   try {
-    Response response = await Dio().get('https://api.mohaddis.com/api/kutabs?type=json', queryParameters: {'BookID': id});
+    Response response = await Dio().get('https://api.mohaddis.com/api/kutabs?type=json', queryParameters: {'BookID': id},options: Options(
+      headers: {"X-ApiKey": "dztydmpy986xwKgCxHQHMjx1qHRrzMQN"},
+    ));
     if (response.statusCode == 200) {
       print(response.data.toString());
 

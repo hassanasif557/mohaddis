@@ -11,8 +11,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SubChapterScreen1 extends StatefulWidget {
 
+  final String id;
   final String name;
-  const SubChapterScreen1({Key? key, required this.name}) : super(key: key);
+  const SubChapterScreen1({Key? key, required this.id, required this.name}) : super(key: key);
 
   @override
   State<SubChapterScreen1> createState() => _SubChapterScreen1State();

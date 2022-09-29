@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:mohaddis/ChapterScreens/SubChapterScreen1.dart';
 import 'package:mohaddis/FrontEnd/HomeScreen.dart';
 import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
@@ -175,35 +176,51 @@ class _ChapterScreenState extends State<ChapterScreen> {
                             ),
                             child: ListTile(
                               leading: const Icon(Icons.arrow_back_ios_new, color: Colors.grey, size: 15.0,),
-                              title: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Text('${posobj.data![index].name.toString()}',
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12.0,
-                                      fontFamily: 'NotoNastaliqUrdu'
-                                  ),
+                              title: Padding(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                child: Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: Html(
+                                    data: posobj.data![index].topicUrdu.toString(),
+                                    style: {
+                                      "body": Style(
+                                        fontSize: FontSize(10.0),
+                                        fontFamily: 'NotoNastaliqUrdu',
+                                        maxLines: 1,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ),
+                                      "p": Style(
+                                        fontSize: FontSize(10.0),
+                                        fontFamily: 'NotoNastaliqUrdu',
+                                        maxLines: 1,
+                                        textOverflow: TextOverflow.ellipsis,
+                                      ),
+                                    },
+                                  )
                                 ),
                               ),
-                              trailing: Container(
-                                width: 15,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/icon.png'),
-                                    fit: BoxFit.fill,
+                              trailing: Padding(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                child: Container(
+                                  width: 15,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/icon.png'),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ),
                               ),
                               selected: true,
                               onTap: () async{
                                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                                prefs.setString('mainchapter', "${posobj.data![index].name.toString()}");
+                                prefs.setString('chapterID', "${posobj.data![index].iDPK.toString()}");
+                                prefs.setString('mainchapter', "${posobj.data![index].topicUrdu.toString()}");
                                 setState(() {
                                   Navigator.push(context,
-                                      MaterialPageRoute(builder: (_) => SubChapterScreen1(name: '${posobj.data![index].name.toString()}')));
+                                      MaterialPageRoute(builder: (_) => SubChapterScreen1(id: "${posobj.data![index].iDPK.toString()}", name: '${posobj.data![index].topicUrdu.toString()}')));
                                 });
                               },
                             ),
@@ -386,7 +403,9 @@ class _ChapterScreenState extends State<ChapterScreen> {
 
 Future<pos> fetchUsers() async {
   try {
-    Response response = await Dio().get('https://countriesnow.space/api/v0.1/countries/positions');
+    Response response = await Dio().get('https://api.mohaddis.com/api/TopicsTree',options: Options(
+      headers: {"X-ApiKey": "dztydmpy986xwKgCxHQHMjx1qHRrzMQN"},
+    ));
     if (response.statusCode == 200) {
       print(response.data.toString());
 
@@ -402,25 +421,20 @@ Future<pos> fetchUsers() async {
 
 
 
-
 class pos {
-  final bool? error;
-  final String? msg;
   final List<Data>? data;
 
-  pos({this.error, this.msg, this.data});
+  pos({this.data});
 
-  factory pos.fromJson(Map<String, dynamic> parsedJson){
+  factory pos.fromJson(List<dynamic> parsedJson){
 
-    var list = parsedJson['data'] as List;
-    print(list.runtimeType);
-    List<Data> dataList = list.map((i) => Data.fromJson(i)).toList();
+    List<Data> data = <Data>[];
+    print(data.runtimeType);
+    data = parsedJson.map((i)=>Data.fromJson(i)).toList();
 
 
     return pos(
-        error: parsedJson['error'],
-        msg: parsedJson['msg'],
-        data: dataList
+        data: data
 
     );
   }
@@ -428,20 +442,31 @@ class pos {
 
 
 class Data {
-  final String? name;
-  final String? iso2;
-  final String? long;
-  final String? lat;
+  int? iDPK;
+  int? parentID;
+  double? seqID;
+  String? topicUrdu;
+  String? topicArabic;
+  int? level;
+  String? topicsEng;
 
-  Data({this.name, this.iso2, this.long,this.lat});
+  Data(
+      {this.iDPK,
+        this.parentID,
+        this.seqID,
+        this.topicUrdu,
+        this.topicArabic,
+        this.level,
+        this.topicsEng});
 
-  factory Data.fromJson(Map<String, dynamic> parsedJson){
-    return Data(
-        name:parsedJson['name'],
-        iso2:parsedJson['iso2'],
-        long:parsedJson['long'].toString(),
-        lat:parsedJson['lat'].toString()
-    );
+  Data.fromJson(Map<String, dynamic> json) {
+    iDPK = json['IDPK'];
+    parentID = json['ParentID'];
+    seqID = json['SeqID'];
+    topicUrdu = json['TopicUrdu'];
+    topicArabic = json['TopicArabic'];
+    level = json['Level'];
+    topicsEng = json['TopicsEng'];
   }
 
 

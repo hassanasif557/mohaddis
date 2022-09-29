@@ -205,7 +205,7 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6),
-                                color: Colors.transparent,
+                                color: Colors.white,
                                 boxShadow: [
                                   BoxShadow(
                                     offset: Offset(0, 2),
@@ -217,43 +217,37 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                               child: Row(
                                 children: [
 
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: Container(
-                                        width: 50,
-                                        height: 50,
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: DropDownWidget2(
-                                            title: 'page',
-                                            items: spinnerItems1,
-                                            currentItem: spinnerItems1.contains(dropdownvalue1) ? dropdownvalue1 : spinnerItems1[0],
-                                            hintText: 'hint',
-                                            itemCallBack: (String status) {
-                                              this.dropdownvalue1 = status;
-                                            },
-                                          ),
+                                  Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Container(
+                                      width: 50,
+                                      height: 50,
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: DropDownWidget2(
+                                          title: 'page',
+                                          items: spinnerItems1,
+                                          currentItem: spinnerItems1.contains(dropdownvalue1) ? dropdownvalue1 : spinnerItems1[0],
+                                          hintText: 'hint',
+                                          itemCallBack: (String status) {
+                                            this.dropdownvalue1 = status;
+                                          },
                                         ),
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: Container(
-                                        width: 100,
-                                        height: 50,
-                                        child: Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Text('صفحہ نمبر',
-                                            style: TextStyle(
-                                              fontFamily: 'NotoNastaliqUrdu',
-                                              fontSize: 10.0
-                                            ),)
-                                        ),
+                                  Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Container(
+                                      width: 100,
+                                      height: 50,
+                                      child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text('صفحہ نمبر',
+                                          style: TextStyle(
+                                            fontFamily: 'NotoNastaliqUrdu',
+                                            fontSize: 10.0
+                                          ),)
                                       ),
                                     ),
                                   ),
@@ -261,11 +255,12 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                               ),
                             )
                           ),
+                          SizedBox(width: 20.0,),
                           Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(6),
-                                  color: Colors.transparent,
+                                  color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
                                       offset: Offset(0, 2),
@@ -277,43 +272,37 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                                 child: Row(
                                   children: [
 
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 10.0),
-                                      child: Directionality(
-                                        textDirection: TextDirection.rtl,
-                                        child: Container(
-                                          width: 50,
-                                          height: 50,
-                                          child: Align(
-                                            alignment: Alignment.centerRight,
-                                            child: DropDownWidget2(
-                                              title: 'page',
-                                              items: spinnerItems2,
-                                              currentItem: spinnerItems2.contains(dropdownvalue2) ? dropdownvalue2 : spinnerItems2[0],
-                                              hintText: 'hint',
-                                              itemCallBack: (String status) {
-                                                this.dropdownvalue2 = status;
-                                              },
-                                            ),
+                                    Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Container(
+                                        width: 50,
+                                        height: 50,
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: DropDownWidget2(
+                                            title: 'page',
+                                            items: spinnerItems2,
+                                            currentItem: spinnerItems2.contains(dropdownvalue2) ? dropdownvalue2 : spinnerItems2[0],
+                                            hintText: 'hint',
+                                            itemCallBack: (String status) {
+                                              this.dropdownvalue2 = status;
+                                            },
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 10.0),
-                                      child: Directionality(
-                                        textDirection: TextDirection.rtl,
-                                        child: Container(
-                                          width: 100,
-                                          height: 50,
-                                          child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Text('تعداد',
-                                                style: TextStyle(
-                                                    fontFamily: 'NotoNastaliqUrdu',
-                                                    fontSize: 10.0
-                                                ),)
-                                          ),
+                                    Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Container(
+                                        width: 100,
+                                        height: 50,
+                                        child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text('تعداد',
+                                              style: TextStyle(
+                                                  fontFamily: 'NotoNastaliqUrdu',
+                                                  fontSize: 10.0
+                                              ),)
                                         ),
                                       ),
                                     ),
@@ -343,7 +332,7 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                                 title: Directionality(
                                   textDirection: TextDirection.rtl,
                                   child: Html(
-                                    data: posobj.data![index].baabNameUrdu.toString(),
+                                    data: "${posobj.data![index].hadeesNumber.toString()}:  ${posobj.data![index].hadithUrduText.toString()}",
                                     style: {
                                       "body": Style(
                                         fontSize: FontSize(10.0),
@@ -377,8 +366,8 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                                 selected: true,
                                 onTap: () async {
                                   SharedPreferences prefs = await SharedPreferences.getInstance();
-                                  prefs.setString('subbook1', "${posobj.data![index].baabNameUrdu.toString()}");
-                                  prefs.setString('subbook1ID', "${posobj.data![index].iDPK.toString()}");
+                                  prefs.setString('hadith', "${posobj.data![index].hadithUrduText.toString()}");
+                                  prefs.setString('HadithNumber', "${posobj.data![index].hadeesNumber.toString()}");
                                   // setState(() {
                                   //   Navigator.push(context,
                                   //       MaterialPageRoute(builder: (_) => SubBookScreen3(id: '${posobj.data![index].iDPK.toString()}', name: '${posobj.data![index].baabNameUrdu.toString()}')));
@@ -565,7 +554,10 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
 
 Future<pos> fetchUsers(String id, String tarakeem, String translation, String hashiya, String hukam, String pagenumber, String number) async {
   try {
-    Response response = await Dio().get('https://api.mohaddis.com/api/ahadith?type=json', queryParameters: {'baabID': id, 'DefaulTarqeem':tarakeem, 'DefaultTranslation':translation, 'DefaultHashiya':hashiya, 'DefaultHukam':hukam, 'OffSet': pagenumber, 'PageSize': number});
+    print('baabid= ${id}, tarakeem= ${tarakeem}, translation= ${translation}, hashia=${hashiya}, hukam= ${hukam}, offset= ${number}');
+    Response response = await Dio().get('https://api.mohaddis.com/api/ahadith?type=json', queryParameters: {'baabID':"68374", 'DefaulTarqeem':"HadeesNumber", 'DefaultTranslation':"HadithUrduText", 'DefaultHashiya':"HadithHashiaText", 'DefaultHukam':"HadithHukamAjmali", 'OffSet': pagenumber, 'PageSize': number},options: Options(
+      headers: {"X-ApiKey": "dztydmpy986xwKgCxHQHMjx1qHRrzMQN"},
+    ));
     if (response.statusCode == 200) {
       print(response.data.toString());
 
@@ -603,31 +595,286 @@ class pos {
 
 
 class Data {
-  int? iDPK;
-  int? kitaabID;
+  double? hadeesNumber;
+  int? hadeesNumberZero;
+  double? hadeesNumberTOne;
+  double? hadeesNumberTTwo;
+  double? hadeesNumberTThree;
+  double? hadeesNumberTFour;
+  double? hadeesNumberTFive;
+  double? hadeesNumberTSix;
+  double? hadeesNumberTSeven;
+  double? hadeesNumberTEight;
+  double? hadeesNumberTNine;
+  double? baabID;
+  String? hadithArabicText;
+  String? hadithBookName;
+  String? hadithBookNameUrdu;
+  String? hadithBookNameEng;
   String? baabNameArabic;
-  String? baabNameUrdu;
   String? baabNameEng;
+  String? baabNameUrdu;
   String? tarjumatulBaabArabic;
   String? tarjumatulBaabUrdu;
+  String? tarjumatulBaabUrduZero;
+  String? tarjumatulBaabUrduOne;
+  String? tarjumatulBaabUrduTwo;
+  String? tarjumatulBaabUrduThree;
+  String? tarjumatulBaabUrduFour;
+  String? tarjumatulBaabUrduFive;
+  String? tarjumatulBaabUrduSix;
+  String? tarjumatulBaabUrduSeven;
+  String? tarjumatulBaabUrduEight;
+  String? tarjumatulBaabUrduNine;
+  String? tarjumatulBaabUrduTen;
+  String? hadithUrduText;
+  String? hadithUrduTextZero;
+  String? hadithUrduTextOne;
+  String? hadithUrduTextTwo;
+  String? hadithUrduTextThree;
+  String? hadithUrduTextFour;
+  String? hadithUrduTextFive;
+  String? hadithUrduTextSix;
+  String? hadithUrduTextSeven;
+  String? hadithUrduTextEight;
+  String? hadithUrduTextNine;
+  String? hadithUrduTextTen;
+  String? hadithHashiaText;
+  String? hadithHashiaTextOne;
+  String? hadithHashiaTextTwo;
+  String? hadithHashiaTextThree;
+  String? hadithHashiaTextFour;
+  String? hadithHashiaTextFive;
+  String? hadithHashiaTextSix;
+  String? hadithHashiaTextSeven;
+  String? hadithHashiaTextEight;
+  String? hadithHashiaTextNine;
+  String? hadithHashiaTextTen;
+  String? hadithTypeAtraaf;
+  String? kitaabNameARabic;
+  String? kitaabNameEng;
+  String? hadithTypeRawaat;
+  String? hadithTypeQFT;
+  String? hadithHukamAjmali;
+  String? hadithHukamAjmaliOne;
+  String? hadithHukamAjmaliTwo;
+  String? hadithHukamAjmaliThree;
+  String? hadithHukamAjmaliFour;
+  String? hadithHukamAjmaliFive;
+  String? hadithHukamAjmaliSix;
+  String? hadithHukamAjmaliSeven;
+  String? hadithHukamAjmaliEight;
+  String? hadithHukamAjmaliNine;
+  String? hadithHukamAjmaliTen;
+  String? kitaabNameUrdu;
+  String? hadithHukamTafseeli;
+  String? hadithMouzuhArabic;
+  String? hadithMouzuhUrdu;
+  String? hadithHukamTafseeliArabic;
+  String? kitaabTamheedArabic;
+  String? kitaabTamheedUrdu;
+  String? abwaabTamheedArabic;
+  String? abwaabTamheedUrdu;
+  int? totalCount;
+  int? bookId;
+  double? hadithNo;
+  Null? defaulTarqeem;
+  Null? defaultTranslation;
+  Null? defaultHashiya;
+  Null? defaultHukam;
+  int? pageNumber;
+  int? pageSize;
+  Null? sortOrder;
+  Null? sortColumn;
+  int? offSet;
 
   Data(
-      {this.iDPK,
-        this.kitaabID,
+      {this.hadeesNumber,
+        this.hadeesNumberZero,
+        this.hadeesNumberTOne,
+        this.hadeesNumberTTwo,
+        this.hadeesNumberTThree,
+        this.hadeesNumberTFour,
+        this.hadeesNumberTFive,
+        this.hadeesNumberTSix,
+        this.hadeesNumberTSeven,
+        this.hadeesNumberTEight,
+        this.hadeesNumberTNine,
+        this.baabID,
+        this.hadithArabicText,
+        this.hadithBookName,
+        this.hadithBookNameUrdu,
+        this.hadithBookNameEng,
         this.baabNameArabic,
-        this.baabNameUrdu,
         this.baabNameEng,
+        this.baabNameUrdu,
         this.tarjumatulBaabArabic,
-        this.tarjumatulBaabUrdu});
+        this.tarjumatulBaabUrdu,
+        this.tarjumatulBaabUrduZero,
+        this.tarjumatulBaabUrduOne,
+        this.tarjumatulBaabUrduTwo,
+        this.tarjumatulBaabUrduThree,
+        this.tarjumatulBaabUrduFour,
+        this.tarjumatulBaabUrduFive,
+        this.tarjumatulBaabUrduSix,
+        this.tarjumatulBaabUrduSeven,
+        this.tarjumatulBaabUrduEight,
+        this.tarjumatulBaabUrduNine,
+        this.tarjumatulBaabUrduTen,
+        this.hadithUrduText,
+        this.hadithUrduTextZero,
+        this.hadithUrduTextOne,
+        this.hadithUrduTextTwo,
+        this.hadithUrduTextThree,
+        this.hadithUrduTextFour,
+        this.hadithUrduTextFive,
+        this.hadithUrduTextSix,
+        this.hadithUrduTextSeven,
+        this.hadithUrduTextEight,
+        this.hadithUrduTextNine,
+        this.hadithUrduTextTen,
+        this.hadithHashiaText,
+        this.hadithHashiaTextOne,
+        this.hadithHashiaTextTwo,
+        this.hadithHashiaTextThree,
+        this.hadithHashiaTextFour,
+        this.hadithHashiaTextFive,
+        this.hadithHashiaTextSix,
+        this.hadithHashiaTextSeven,
+        this.hadithHashiaTextEight,
+        this.hadithHashiaTextNine,
+        this.hadithHashiaTextTen,
+        this.hadithTypeAtraaf,
+        this.kitaabNameARabic,
+        this.kitaabNameEng,
+        this.hadithTypeRawaat,
+        this.hadithTypeQFT,
+        this.hadithHukamAjmali,
+        this.hadithHukamAjmaliOne,
+        this.hadithHukamAjmaliTwo,
+        this.hadithHukamAjmaliThree,
+        this.hadithHukamAjmaliFour,
+        this.hadithHukamAjmaliFive,
+        this.hadithHukamAjmaliSix,
+        this.hadithHukamAjmaliSeven,
+        this.hadithHukamAjmaliEight,
+        this.hadithHukamAjmaliNine,
+        this.hadithHukamAjmaliTen,
+        this.kitaabNameUrdu,
+        this.hadithHukamTafseeli,
+        this.hadithMouzuhArabic,
+        this.hadithMouzuhUrdu,
+        this.hadithHukamTafseeliArabic,
+        this.kitaabTamheedArabic,
+        this.kitaabTamheedUrdu,
+        this.abwaabTamheedArabic,
+        this.abwaabTamheedUrdu,
+        this.totalCount,
+        this.bookId,
+        this.hadithNo,
+        this.defaulTarqeem,
+        this.defaultTranslation,
+        this.defaultHashiya,
+        this.defaultHukam,
+        this.pageNumber,
+        this.pageSize,
+        this.sortOrder,
+        this.sortColumn,
+        this.offSet});
 
   Data.fromJson(Map<String, dynamic> json) {
-    iDPK = json['IDPK'];
-    kitaabID = json['KitaabID'];
+    hadeesNumber = json['HadeesNumber'];
+    hadeesNumberZero = json['HadeesNumberZero'];
+    hadeesNumberTOne = json['HadeesNumberTOne'];
+    hadeesNumberTTwo = json['HadeesNumberTTwo'];
+    hadeesNumberTThree = json['HadeesNumberTThree'];
+    hadeesNumberTFour = json['HadeesNumberTFour'];
+    hadeesNumberTFive = json['HadeesNumberTFive'];
+    hadeesNumberTSix = json['HadeesNumberTSix'];
+    hadeesNumberTSeven = json['HadeesNumberTSeven'];
+    hadeesNumberTEight = json['HadeesNumberTEight'];
+    hadeesNumberTNine = json['HadeesNumberTNine'];
+    baabID = json['BaabID'];
+    hadithArabicText = json['HadithArabicText'];
+    hadithBookName = json['HadithBookName'];
+    hadithBookNameUrdu = json['HadithBookNameUrdu'];
+    hadithBookNameEng = json['HadithBookNameEng'];
     baabNameArabic = json['BaabNameArabic'];
-    baabNameUrdu = json['BaabNameUrdu'];
     baabNameEng = json['BaabNameEng'];
+    baabNameUrdu = json['BaabNameUrdu'];
     tarjumatulBaabArabic = json['TarjumatulBaabArabic'];
     tarjumatulBaabUrdu = json['TarjumatulBaabUrdu'];
+    tarjumatulBaabUrduZero = json['TarjumatulBaabUrduZero'];
+    tarjumatulBaabUrduOne = json['TarjumatulBaabUrduOne'];
+    tarjumatulBaabUrduTwo = json['TarjumatulBaabUrduTwo'];
+    tarjumatulBaabUrduThree = json['TarjumatulBaabUrduThree'];
+    tarjumatulBaabUrduFour = json['TarjumatulBaabUrduFour'];
+    tarjumatulBaabUrduFive = json['TarjumatulBaabUrduFive'];
+    tarjumatulBaabUrduSix = json['TarjumatulBaabUrduSix'];
+    tarjumatulBaabUrduSeven = json['TarjumatulBaabUrduSeven'];
+    tarjumatulBaabUrduEight = json['TarjumatulBaabUrduEight'];
+    tarjumatulBaabUrduNine = json['TarjumatulBaabUrduNine'];
+    tarjumatulBaabUrduTen = json['TarjumatulBaabUrduTen'];
+    hadithUrduText = json['HadithUrduText'];
+    hadithUrduTextZero = json['HadithUrduTextZero'];
+    hadithUrduTextOne = json['HadithUrduTextOne'];
+    hadithUrduTextTwo = json['HadithUrduTextTwo'];
+    hadithUrduTextThree = json['HadithUrduTextThree'];
+    hadithUrduTextFour = json['HadithUrduTextFour'];
+    hadithUrduTextFive = json['HadithUrduTextFive'];
+    hadithUrduTextSix = json['HadithUrduTextSix'];
+    hadithUrduTextSeven = json['HadithUrduTextSeven'];
+    hadithUrduTextEight = json['HadithUrduTextEight'];
+    hadithUrduTextNine = json['HadithUrduTextNine'];
+    hadithUrduTextTen = json['HadithUrduTextTen'];
+    hadithHashiaText = json['HadithHashiaText'];
+    hadithHashiaTextOne = json['HadithHashiaTextOne'];
+    hadithHashiaTextTwo = json['HadithHashiaTextTwo'];
+    hadithHashiaTextThree = json['HadithHashiaTextThree'];
+    hadithHashiaTextFour = json['HadithHashiaTextFour'];
+    hadithHashiaTextFive = json['HadithHashiaTextFive'];
+    hadithHashiaTextSix = json['HadithHashiaTextSix'];
+    hadithHashiaTextSeven = json['HadithHashiaTextSeven'];
+    hadithHashiaTextEight = json['HadithHashiaTextEight'];
+    hadithHashiaTextNine = json['HadithHashiaTextNine'];
+    hadithHashiaTextTen = json['HadithHashiaTextTen'];
+    hadithTypeAtraaf = json['HadithTypeAtraaf'];
+    kitaabNameARabic = json['KitaabNameARabic'];
+    kitaabNameEng = json['KitaabNameEng'];
+    hadithTypeRawaat = json['HadithTypeRawaat'];
+    hadithTypeQFT = json['HadithTypeQFT'];
+    hadithHukamAjmali = json['HadithHukamAjmali'];
+    hadithHukamAjmaliOne = json['HadithHukamAjmaliOne'];
+    hadithHukamAjmaliTwo = json['HadithHukamAjmaliTwo'];
+    hadithHukamAjmaliThree = json['HadithHukamAjmaliThree'];
+    hadithHukamAjmaliFour = json['HadithHukamAjmaliFour'];
+    hadithHukamAjmaliFive = json['HadithHukamAjmaliFive'];
+    hadithHukamAjmaliSix = json['HadithHukamAjmaliSix'];
+    hadithHukamAjmaliSeven = json['HadithHukamAjmaliSeven'];
+    hadithHukamAjmaliEight = json['HadithHukamAjmaliEight'];
+    hadithHukamAjmaliNine = json['HadithHukamAjmaliNine'];
+    hadithHukamAjmaliTen = json['HadithHukamAjmaliTen'];
+    kitaabNameUrdu = json['KitaabNameUrdu'];
+    hadithHukamTafseeli = json['HadithHukamTafseeli'];
+    hadithMouzuhArabic = json['HadithMouzuhArabic'];
+    hadithMouzuhUrdu = json['HadithMouzuhUrdu'];
+    hadithHukamTafseeliArabic = json['HadithHukamTafseeliArabic'];
+    kitaabTamheedArabic = json['KitaabTamheedArabic'];
+    kitaabTamheedUrdu = json['KitaabTamheedUrdu'];
+    abwaabTamheedArabic = json['AbwaabTamheedArabic'];
+    abwaabTamheedUrdu = json['AbwaabTamheedUrdu'];
+    totalCount = json['TotalCount'];
+    bookId = json['Book_Id'];
+    hadithNo = json['Hadith_No'];
+    defaulTarqeem = json['DefaulTarqeem'];
+    defaultTranslation = json['DefaultTranslation'];
+    defaultHashiya = json['DefaultHashiya'];
+    defaultHukam = json['DefaultHukam'];
+    pageNumber = json['PageNumber'];
+    pageSize = json['PageSize'];
+    sortOrder = json['SortOrder'];
+    sortColumn = json['SortColumn'];
+    offSet = json['OffSet'];
   }
 
 }

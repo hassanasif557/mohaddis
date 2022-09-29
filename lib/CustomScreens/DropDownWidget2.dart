@@ -66,7 +66,7 @@ class _DropdownState extends State<DropDownWidget2> {
             BoxShadow(
               offset: Offset(0, 2),
               blurRadius: 10,
-              color: Color(0x19000000),
+              color: Colors.white,
             ),
           ],
         ),

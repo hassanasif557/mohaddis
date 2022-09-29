@@ -450,7 +450,9 @@ class _SubBookScreen2State extends State<SubBookScreen2> {
 
 Future<pos> fetchUsers(String id) async {
   try {
-    Response response = await Dio().get('https://api.mohaddis.com/api/abwaabs?type=json', queryParameters: {'KitaabID': id});
+    Response response = await Dio().get('https://api.mohaddis.com/api/abwaabs?type=json', queryParameters: {'KitaabID': id},options: Options(
+      headers: {"X-ApiKey": "dztydmpy986xwKgCxHQHMjx1qHRrzMQN"},
+    ));
     if (response.statusCode == 200) {
       print(response.data.toString());
 
