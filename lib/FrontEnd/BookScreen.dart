@@ -155,6 +155,7 @@ class _BookScreenState extends State<BookScreen> {
                               onTap: () async {
                                 SharedPreferences prefs = await SharedPreferences.getInstance();
                                 prefs.setString('mainbookID', posobj.data![index].HadithBookID.toString());
+                                prefs.setString('mainbookName', posobj.data![index].HadithBookNameUrdu.toString());
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (_) => SubBookScreen1(id: posobj.data![index].HadithBookID.toString(), name: posobj.data![index].HadithBookNameUrdu.toString())));
                               },

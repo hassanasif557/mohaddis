@@ -519,3 +519,39 @@ class Data {
 
 }
 
+
+
+
+/*
+Padding(
+                                                padding: const EdgeInsets.only(left: 8.0),
+                                                child: Text(
+                                                  posobj2.data2![0].hadithBookNameUrdu.toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    color: Color.fromARGB(255, 37, 160, 75),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 8.0),
+                                                child: Text(
+                                                  posobj2.data2![0].kitaabNameUrdu.toString(),
+                                                  style: TextStyle(
+                                                    decoration: TextDecoration.underline,
+                                                    fontSize: 14.0,
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 8.0),
+                                                child: Text(
+                                                  posobj2.data2![0].baabNameUrdu.toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 14.0,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+ */
