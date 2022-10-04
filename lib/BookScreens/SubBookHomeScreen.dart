@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 import 'package:mohaddis/CustomScreens/CustomDialogBoxAlsharrah.dart';
 import 'package:mohaddis/CustomScreens/CustomDialogBoxAltarakeem.dart';
 import 'package:mohaddis/ModelClasses/AlSharrahModel.dart';
@@ -391,36 +392,14 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                               Expanded(
                                                 child: Padding(
                                                   padding: const EdgeInsets.only(left: 8.0),
-                                                  child: Text(
-                                                    posobj2.data2![0].hadithBookName.toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 14.0,
-                                                      color: Color.fromARGB(255, 37, 160, 75),
+                                                  child: RichText(
+                                                    text: HTML.toTextSpan(context,
+                                                      "<body><span style='color:green;'>${posobj2.data2![0].hadithBookName.toString()}</span>  <span style='color:red;'>${posobj2.data2![0].kitaabNameARabic.toString()}</span>  <span style='color:black;'>${posobj2.data2![0].baabNameArabic.toString()}</span></body>",
+                                                      defaultTextStyle: TextStyle(
+                                                        fontSize: 13,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Padding( 
-                                                  padding: const EdgeInsets.only(left: 8.0),
-                                                  child: Text(
-                                                    posobj2.data2![0].kitaabNameARabic.toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 14.0,
-                                                      color: Colors.red,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Padding( 
-                                                  padding: const EdgeInsets.only(left: 8.0),
-                                                  child: Text(
-                                                    posobj2.data2![0].baabNameArabic.toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 14.0,
-                                                      color: Colors.black,
-                                                    ),
+                                                    maxLines: 4,
                                                   ),
                                                 ),
                                               ),
@@ -437,12 +416,13 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                             width: double.maxFinite,
                                             child: Padding(
                                               padding: const EdgeInsets.only(left: 8.0),
-                                              child: Text(
-                                                posobj2.data2![0].hadithHukamAjmali.toString(),
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(
-                                                  fontSize: 14.0,
-                                                  color: Color.fromARGB(255, 37, 160, 75),
+                                              child: RichText(
+                                                text: HTML.toTextSpan(context,
+                                                  posobj2.data2![0].hadithHukamAjmali.toString(),
+                                                  defaultTextStyle: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Color.fromARGB(255, 37, 160, 75),
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -451,20 +431,21 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 10.0, left: 10.0, right: 10.0),
+                                            top: 10.0, left: 10.0, right: 10.0, bottom: 10.0),
                                         child: Directionality(
                                           textDirection: TextDirection.rtl,
                                           child: Container(
                                             width: double.maxFinite,
                                             child: Padding(
                                               padding: const EdgeInsets.only(left: 8.0),
-                                              child: Text(
-                                                posobj2.data2![0].hadithArabicText.toString(),
-                                                textAlign: TextAlign.justify,
-                                                style: TextStyle(
-                                                  height: 2.0,
-                                                  fontSize: 14.0,
-                                                  color: Colors.black,
+                                              child: RichText(
+                                                text: HTML.toTextSpan(context,
+                                                  posobj2.data2![0].hadithArabicText.toString(),
+                                                  defaultTextStyle: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.black87,
+                                                    height: 2.5
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -492,22 +473,26 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                           textDirection: TextDirection.rtl,
                                           child: Row(
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 8.0),
-                                                child: Html(
-                                                  data:
-                                                  "<p style='color:green;'>${posobj2.data2![0].hadithBookNameUrdu.toString()}</p>  <p style='color:red;'>${posobj2.data2![0].kitaabNameUrdu.toString()}</p>  <p style='color:black;'>${posobj2.data2![0].baabNameUrdu.toString()}</p>",
-                                                  style: {
-                                                    "body": Style(
-                                                      fontSize: FontSize(10.0),
-                                                      fontFamily: 'NotoNastaliqUrdu',
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: 8.0),
+                                                  child: RichText(
+                                                    text: HTML.toTextSpan(context,
+                                                      "<body><span style='color:green;'>${posobj2.data2![0].hadithBookNameUrdu.toString()}</span>  <span style='color:red;'>${posobj2.data2![0].kitaabNameUrdu.toString()}</span>  <span style='color:black;'>${posobj2.data2![0].baabNameUrdu.toString()}</span></body>",
+                                                      defaultTextStyle: TextStyle(
+                                                        fontSize: 10,
+                                                        fontFamily: 'NotoNastaliqUrdu',
+                                                      ),
+                                                      overrideStyle: {
+                                                        "p": TextStyle(
+                                                          fontSize: 10,
+                                                          fontFamily: 'NotoNastaliqUrdu'
+                                                        ),
+                                                      },
                                                     ),
-                                                    "p": Style(
-                                                      fontSize: FontSize(10.0),
-                                                      fontFamily: 'NotoNastaliqUrdu',
-                                                    ),
-                                                  },
-                                                )
+                                                    maxLines: 4,
+                                                  )
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -515,22 +500,23 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 10.0, left: 10.0, right: 10.0),
+                                            top: 10.0, left: 10.0, right: 10.0, bottom: 10.0),
                                         child: Directionality(
                                           textDirection: TextDirection.rtl,
                                           child: Container(
                                             width: double.maxFinite,
                                             child: Padding(
                                               padding: const EdgeInsets.only(left: 8.0),
-                                              child: Text(
-                                                posobj2.data2![0].hadithUrduText.toString(),
-                                                textAlign: TextAlign.justify,
-                                                style: TextStyle(
-                                                  height: 2.0,
-                                                  fontSize: 14.0,
-                                                  color: Colors.black,
+                                              child: RichText(
+                                                text: HTML.toTextSpan(context,
+                                                  posobj2.data2![0].hadithUrduText.toString(),
+                                                  defaultTextStyle: TextStyle(
+                                                    fontSize: 10,
+                                                    fontFamily: 'NotoNastaliqUrdu',
+                                                    height: 4.0,
+                                                  ),
                                                 ),
-                                              ),
+                                              )
                                             ),
                                           ),
                                         ),

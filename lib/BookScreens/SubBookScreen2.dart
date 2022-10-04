@@ -10,6 +10,7 @@ import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 
 class SubBookScreen2 extends StatefulWidget {
 
@@ -222,25 +223,22 @@ class _SubBookScreen2State extends State<SubBookScreen2> {
                               ),
                               child: ListTile(
                                 leading: const Icon(Icons.arrow_back_ios_new, color: Colors.grey, size: 15.0,),
-                                title: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: Html(
-                                    data: posobj.data![index].baabNameUrdu.toString(),
-                                    style: {
-                                      "body": Style(
-                                        fontSize: FontSize(10.0),
-                                        fontFamily: 'NotoNastaliqUrdu',
-                                        maxLines: 1,
-                                        textOverflow: TextOverflow.ellipsis,
-                                      ),
-                                      "p": Style(
-                                          fontSize: FontSize(10.0),
+                                title: Padding(
+                                  padding: const EdgeInsets.only(bottom: 12.0),
+                                  child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: RichText(
+                                      text: HTML.toTextSpan(context,
+                                        posobj.data![index].baabNameUrdu.toString(),
+                                        defaultTextStyle: TextStyle(
+                                          fontSize: 10,
                                           fontFamily: 'NotoNastaliqUrdu',
-                                        maxLines: 1,
-                                        textOverflow: TextOverflow.ellipsis,
+                                          color: Colors.black,
+                                        ),
                                       ),
-                                    },
-                                  )
+                                      maxLines: 1,
+                                    ),
+                                  ),
                                 ),
                                 trailing: Padding(
                                   padding: const EdgeInsets.only(bottom: 10.0),
@@ -522,36 +520,3 @@ class Data {
 
 
 
-/*
-Padding(
-                                                padding: const EdgeInsets.only(left: 8.0),
-                                                child: Text(
-                                                  posobj2.data2![0].hadithBookNameUrdu.toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    color: Color.fromARGB(255, 37, 160, 75),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 8.0),
-                                                child: Text(
-                                                  posobj2.data2![0].kitaabNameUrdu.toString(),
-                                                  style: TextStyle(
-                                                    decoration: TextDecoration.underline,
-                                                    fontSize: 14.0,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 8.0),
-                                                child: Text(
-                                                  posobj2.data2![0].baabNameUrdu.toString(),
-                                                  style: TextStyle(
-                                                    fontSize: 14.0,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                              ),
- */

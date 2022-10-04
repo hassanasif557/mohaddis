@@ -12,6 +12,7 @@ import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:readmore/readmore.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 
 class SubBookScreen1 extends StatefulWidget {
 
@@ -179,26 +180,20 @@ class _SubBookScreen1State extends State<SubBookScreen1> {
                               child: ListTile(
                                 leading: const Icon(Icons.arrow_back_ios_new, color: Colors.grey, size: 15.0,),
                                 title: Padding(
-                                  padding: const EdgeInsets.only(bottom: 10.0),
+                                  padding: const EdgeInsets.only(bottom: 12.0),
                                   child: Directionality(
                                     textDirection: TextDirection.rtl,
-                                    child: Html(
-                                      data: posobj.data![index].kitaabNameUrdu.toString(),
-                                      style: {
-                                        "body": Style(
-                                          fontSize: FontSize(10.0),
+                                    child: RichText(
+                                      text: HTML.toTextSpan(context,
+                                        posobj.data![index].kitaabNameUrdu.toString(),
+                                          defaultTextStyle: TextStyle(
+                                          fontSize: 10,
                                           fontFamily: 'NotoNastaliqUrdu',
-                                          maxLines: 1,
-                                          textOverflow: TextOverflow.ellipsis,
+                                          color: Colors.black,
                                         ),
-                                        "p": Style(
-                                          fontSize: FontSize(10.0),
-                                          fontFamily: 'NotoNastaliqUrdu',
-                                          maxLines: 1,
-                                          textOverflow: TextOverflow.ellipsis,
-                                        ),
-                                      },
-                                    )
+                                      ),
+                                      maxLines: 1,
+                                    ),
                                   ),
                                 ),
                                 trailing: Padding(

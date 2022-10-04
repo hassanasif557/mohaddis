@@ -37,6 +37,7 @@ dependencies:
   flutter_widget_from_html:
   flutter_html:
   readmore:
+  simple_html_css:
 
 
   # The following adds the Cupertino Icons fonts to your application.
