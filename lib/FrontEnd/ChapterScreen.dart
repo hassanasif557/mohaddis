@@ -9,6 +9,7 @@ import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 
 class ChapterScreen extends StatefulWidget {
   const ChapterScreen({Key? key}) : super(key: key);
@@ -180,23 +181,17 @@ class _ChapterScreenState extends State<ChapterScreen> {
                                 padding: const EdgeInsets.only(bottom: 10.0),
                                 child: Directionality(
                                   textDirection: TextDirection.rtl,
-                                  child: Html(
-                                    data: posobj.data![index].topicUrdu.toString(),
-                                    style: {
-                                      "body": Style(
-                                        fontSize: FontSize(10.0),
+                                  child: RichText(
+                                    text: HTML.toTextSpan(context,
+                                      posobj.data![index].topicUrdu.toString(),
+                                      defaultTextStyle: TextStyle(
+                                        fontSize: 10,
                                         fontFamily: 'NotoNastaliqUrdu',
-                                        maxLines: 1,
-                                        textOverflow: TextOverflow.ellipsis,
+                                        color: Colors.black,
                                       ),
-                                      "p": Style(
-                                        fontSize: FontSize(10.0),
-                                        fontFamily: 'NotoNastaliqUrdu',
-                                        maxLines: 1,
-                                        textOverflow: TextOverflow.ellipsis,
-                                      ),
-                                    },
-                                  )
+                                    ),
+                                    maxLines: 1,
+                                  ),
                                 ),
                               ),
                               trailing: Padding(

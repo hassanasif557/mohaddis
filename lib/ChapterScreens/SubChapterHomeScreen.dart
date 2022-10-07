@@ -572,8 +572,8 @@ class _SubChapterHomeScreenState extends State<SubChapterHomeScreen> {
                           showDialog(context: context,
                               builder: (BuildContext context){
                                 return CustomDialogBoxAlMozoo(
-                                    almozooList: almozooList,
-                                    mozooatList: mozooatList,
+                                    hadithNumber: 'hadeesNumber',
+                                    hadithBookID: 'bookid',
                                     title: 'موضوعات '
                                 );
                               }

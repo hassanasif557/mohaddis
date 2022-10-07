@@ -397,7 +397,7 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                                       textDirection: TextDirection.rtl,
                                       child: RichText(
                                         text: HTML.toTextSpan(context,
-                                            "${posobj.data![index].hadeesNumber.toString()}:  ${posobj.data![index].hadithUrduText.toString()}",
+                                            "${posobj.data![index].hadeesNumber.toString()}:  ${posobj.data![index].hadithUrduTextZero.toString()}",
                                           defaultTextStyle: TextStyle(
                                             fontSize: 10,
                                             fontFamily: 'NotoNastaliqUrdu',

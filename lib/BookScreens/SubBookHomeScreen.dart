@@ -41,7 +41,7 @@ class SubBookHomeScreen extends StatefulWidget {
 class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TextEditingController controller = TextEditingController();
+  late TextEditingController controller;
 
   String dropdownvalue1 = 'احادیث';
   final List<String> spinnerItemsUrdu = ["احادیث", "کتب", "ابواب", "موضوعات"];
@@ -64,10 +64,62 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
   late Future<pos2> listUsers2;
   pos2 posobj2 = new pos2();
 
+  int tarakeemNumber = 0;
+  String hadeesNumber = '';
+
+  void updaterTarakeem(String tarakeem)
+  {
+    setState(() {
+      for(int i=0;i<spinnerItemsUrdu.length;i++)
+      {
+        if(tarakeem == spinnerItemsUrdu[i])
+          {
+            tarakeemNumber = i+1;
+          }
+        print('update tarakeem ${tarakeemNumber}');
+      }
+
+      tarakeemNumber == 0
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberZero.toString()
+          : tarakeemNumber == 1
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberTOne.toString()
+          : tarakeemNumber == 2
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberTTwo.toString()
+          : tarakeemNumber == 3
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberTThree.toString()
+          : tarakeemNumber == 4
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberTFour.toString()
+          : tarakeemNumber == 5
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberTFive.toString()
+          : tarakeemNumber == 6
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberTSix.toString()
+          : tarakeemNumber == 7
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberTSeven.toString()
+          : tarakeemNumber == 8
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberTEight.toString()
+          : tarakeemNumber == 9
+          ?hadeesNumber = posobj2.data2![0].hadeesNumberTNine.toString()
+          : '';
+
+      controller.text = hadeesNumber;
+    });
+  }
+
+  void updaterHadeesNumber(String hadeesNo)
+  {
+    setState(() {
+      listUsers2 = fetchUsers2(widget.bookid, hadeesNo, widget.tarakeem, widget.translation, widget.hashiya, widget.hukam);
+
+    });
+  }
+
   @override
   void initState() {
+    controller = TextEditingController(text: hadeesNumber);
+
     listUsers = fetchUsers();
     listUsers2 = fetchUsers2(widget.bookid, widget.id, widget.tarakeem, widget.translation, widget.hashiya, widget.hukam);
+
     dropdownvalue1 = widget.tarakeem;
     // TODO: implement initState
     super.initState();
@@ -244,613 +296,174 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                   if (snapshot.hasData) {
                     posobj2 = snapshot.data!;
 
+                    if(posobj2.data2!.isNotEmpty)
+                      {
+                        tarakeemNumber == 0
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberZero.toString()
+                            : tarakeemNumber == 1
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberTOne.toString()
+                            : tarakeemNumber == 2
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberTTwo.toString()
+                            : tarakeemNumber == 3
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberTThree.toString()
+                            : tarakeemNumber == 4
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberTFour.toString()
+                            : tarakeemNumber == 5
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberTFive.toString()
+                            : tarakeemNumber == 6
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberTSix.toString()
+                            : tarakeemNumber == 7
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberTSeven.toString()
+                            : tarakeemNumber == 8
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberTEight.toString()
+                            : tarakeemNumber == 9
+                            ?hadeesNumber = posobj2.data2![0].hadeesNumberTNine.toString()
+                            : '';
 
-                    print('yes present');
+                        controller.text = hadeesNumber;
+                        print('yes present');
 
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: Offset(0, 3))
-                              ],
-                              color: Colors.white,
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 5.0, left: 10.0),
-                                    child: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: Container(
-                                        width: 150,
-                                        height: 50,
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: DropDownWidget2(
-                                            title: 'page',
-                                            items: spinnerItemsUrdu,
-                                            currentItem: spinnerItemsUrdu
-                                                .contains(dropdownvalue1)
-                                                ? dropdownvalue1
-                                                : spinnerItemsUrdu[0],
-                                            hintText: 'hint',
-                                            itemCallBack: (String status) {
-                                              setState(() {
-                                                print('drop1');
-                                                this.dropdownvalue1 = status;
-                                                //updater();
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10.0, left: 40.0),
-                                  child: Container(
-                                    width: 110.0,
-                                    height: 50.0,
-                                    child: Row(
-                                      children: [
-                                        Center(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                border: Border(
-                                                  bottom: BorderSide(
-                                                    //                   <--- right side
-                                                    color: Colors.green,
-                                                    width: 1.0,
-                                                  ),
-                                                  top: BorderSide(
-                                                    //                   <--- right side
-                                                    color:
-                                                    Color.fromARGB(255, 220, 228, 241),
-                                                    width: 1.0,
-                                                  ),
-                                                  left: BorderSide(
-                                                    //                   <--- right side
-                                                    color:
-                                                    Color.fromARGB(255, 220, 228, 241),
-                                                    width: 1.0,
-                                                  ),
-                                                  right: BorderSide(
-                                                    //                   <--- right side
-                                                    color:
-                                                    Color.fromARGB(255, 220, 228, 241),
-                                                    width: 1.0,
-                                                  ),
-                                                )),
-                                            width: 60.0,
-                                            height: 30.0,
-                                            child: Center(
-                                              child: TextField(
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 12.0, color: Colors.black),
-                                                decoration: InputDecoration(
-                                                  hintText: posobj2.data2![0].hadeesNumber.toString(),
-                                                ),
-                                                controller: controller,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 50.0,
-                                          child: Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: Text(
-                                              'حدیث نمبر ',
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(
-                                                  fontSize: 10.0,
-                                                  fontFamily: 'NotoNastaliqUrdu'),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView(
-                            shrinkWrap: true,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, right: 20.0, bottom: 20.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3),
-                                    color: Colors.white,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 15.0, left: 10.0, right: 10.0),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(left: 8.0),
-                                                  child: RichText(
-                                                    text: HTML.toTextSpan(context,
-                                                      "<body><span style='color:green;'>${posobj2.data2![0].hadithBookName.toString()}</span>  <span style='color:red;'>${posobj2.data2![0].kitaabNameARabic.toString()}</span>  <span style='color:black;'>${posobj2.data2![0].baabNameArabic.toString()}</span></body>",
-                                                      defaultTextStyle: TextStyle(
-                                                        fontSize: 13,
-                                                      ),
-                                                    ),
-                                                    maxLines: 4,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 10.0, left: 10.0, right: 10.0),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: Container(
-                                            width: double.maxFinite,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 8.0),
-                                              child: RichText(
-                                                text: HTML.toTextSpan(context,
-                                                  posobj2.data2![0].hadithHukamAjmali.toString(),
-                                                  defaultTextStyle: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Color.fromARGB(255, 37, 160, 75),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 10.0, left: 10.0, right: 10.0, bottom: 10.0),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: Container(
-                                            width: double.maxFinite,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 8.0),
-                                              child: RichText(
-                                                text: HTML.toTextSpan(context,
-                                                  posobj2.data2![0].hadithArabicText.toString(),
-                                                  defaultTextStyle: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.black87,
-                                                    height: 2.5
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 20.0, right: 20.0, bottom: 20.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3),
-                                    color: Colors.white,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 15.0, left: 10.0, right: 10.0),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: const EdgeInsets.only(left: 8.0),
-                                                  child: RichText(
-                                                    text: HTML.toTextSpan(context,
-                                                      "<body><span style='color:green;'>${posobj2.data2![0].hadithBookNameUrdu.toString()}</span>  <span style='color:red;'>${posobj2.data2![0].kitaabNameUrdu.toString()}</span>  <span style='color:black;'>${posobj2.data2![0].baabNameUrdu.toString()}</span></body>",
-                                                      defaultTextStyle: TextStyle(
-                                                        fontSize: 10,
-                                                        fontFamily: 'NotoNastaliqUrdu',
-                                                      ),
-                                                      overrideStyle: {
-                                                        "p": TextStyle(
-                                                          fontSize: 10,
-                                                          fontFamily: 'NotoNastaliqUrdu'
-                                                        ),
-                                                      },
-                                                    ),
-                                                    maxLines: 4,
-                                                  )
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 10.0, left: 10.0, right: 10.0, bottom: 10.0),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: Container(
-                                            width: double.maxFinite,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 8.0),
-                                              child: RichText(
-                                                text: HTML.toTextSpan(context,
-                                                  posobj2.data2![0].hadithUrduText.toString(),
-                                                  defaultTextStyle: TextStyle(
-                                                    fontSize: 10,
-                                                    fontFamily: 'NotoNastaliqUrdu',
-                                                    height: 4.0,
-                                                  ),
-                                                ),
-                                              )
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                        return Column(
                           children: [
-                            Container(
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border(
-                                      top: BorderSide(
-                                        //                   <--- right side
-                                        color: Colors.green,
-                                        width: 1.0,
-                                      ),
-                                    )),
-                                height: 50.0,
-                                width: double.maxFinite,
-                                child: chapterbar
-                                    ? new Expanded(
-                                    child: Directionality(
-                                      textDirection: TextDirection.rtl,
-                                      child: Slider(
-                                          value: _value.toDouble(),
-                                          min: 1.0,
-                                          max: 20.0,
-                                          divisions: 100,
-                                          activeColor: Colors.green,
-                                          inactiveColor:
-                                          Color.fromARGB(255, 220, 228, 241),
-                                          label: 'Set volume value',
-                                          onChanged: (double newValue) {
-                                            setState(() {
-                                              _value = newValue;
-                                            });
-                                          },
-                                          semanticFormatterCallback: (double newValue) {
-                                            return '${newValue.round()} dollars';
-                                          }),
-                                    ))
-                                    : Center(
-                                  child: InkWell(
-                                    splashColor: Colors.green,
-                                    onTap: () {
-
-                                      almozooList.clear();
-                                      almozooList.add('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث');
-                                      almozooList.add('الحكم على الحديث ى الحديث الحكم على الحديث');
-                                      almozooList.add('الحكم على الحديث حكم على الحديث');
-
-                                      mozooatList.clear();
-                                      mozooatList.add('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث');
-                                      mozooatList.add('الحكم على الحديث ى الحديث الحكم على الحديث');
-                                      mozooatList.add('الحكم على الحديث حكم على الحديث');
-
-                                      showDialog(context: context,
-                                          builder: (BuildContext context){
-                                            return CustomDialogBoxAlMozoo(
-                                                almozooList: almozooList,
-                                                mozooatList: mozooatList,
-                                                title: 'موضوعات '
-                                            );
-                                          }
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          height: 15.0,
-                                          width: 15.0,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                  'assets/images/l_0001.png'),
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ), // <-- Icon
-                                        Text(
-                                          "موضوعات ",
-                                          style: TextStyle(
-                                              fontSize: 10.0, color: Colors.black),
-                                        ), // <-- Text
-                                      ],
-                                    ),
-                                  ),
-                                )),
-                            Container(
-                              height: 50.0,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage('assets/images/rectangle_798.png'),
-                                  fit: BoxFit.fill,
+                                  borderRadius: BorderRadius.circular(3),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3))
+                                  ],
+                                  color: Colors.white,
                                 ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                                 child: Row(
                                   children: [
                                     Expanded(
-                                      child: InkWell(
-                                        splashColor: Colors.green,
-                                        onTap: () {
-                                          setState(() {
-                                            if (chapterbar == true)
-                                              chapterbar = false;
-                                            else
-                                              chapterbar = true;
-                                          });
-                                        },
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                              height: 25.0,
-                                              width: 25.0,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image:
-                                                  AssetImage('assets/images/dotss.png'),
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
-                                            ), // <-- Icon
-                                            // <-- Text
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: InkWell(
-                                        splashColor: Colors.green,
-                                        onTap: () {
-                                          altahreejlist.clear();
-                                          altahreejlist.add(AltahreejModel('book_name', '234454'));
-                                          altahreejlist.add(AltahreejModel('book_name', '23443354'));
-                                          altahreejlist.add(AltahreejModel('book_name', '2354'));
-                                          altahreejlist.add(AltahreejModel('book_name', '454'));
-                                          showDialog(context: context,
-                                              builder: (BuildContext context){
-                                                return CustomDialogBox(
-                                                    altahreejlist: altahreejlist,
-                                                    title: 'التخريج'
-                                                );
-                                              }
-                                          );
-                                        },
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                              height: 15.0,
-                                              width: 15.0,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/images/forma_1tkh.png'),
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
-                                            ), // <-- Icon
-                                            Text(
-                                              "التخريج",
-                                              style: TextStyle(
-                                                  fontSize: 10.0, color: Colors.white),
-                                            ), // <-- Text
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: InkWell(
-                                        splashColor: Colors.green,
-                                        onTap: () {
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 5.0, left: 10.0),
+                                        child: Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: Container(
+                                            width: 150,
+                                            height: 50,
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: DropDownWidget2(
+                                                title: 'page',
+                                                items: spinnerItemsUrdu,
+                                                currentItem: spinnerItemsUrdu
+                                                    .contains(dropdownvalue1)
+                                                    ? dropdownvalue1
+                                                    : spinnerItemsUrdu[0],
+                                                hintText: 'hint',
+                                                itemCallBack: (String status) {
+                                                  setState(() {
+                                                    print('drop1');
+                                                    this.dropdownvalue1 = status;
 
-                                          alhukmlist.clear();
-                                          alhukmlist.add(AlhukmModel('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث', 'الحكم يث'));
-                                          alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
-                                          alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
-                                          alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
-                                          showDialog(context: context,
-                                              builder: (BuildContext context){
-                                                return CustomDialogBoxAlHukm(
-                                                    alhukmModel: alhukmlist,
-                                                    title: 'الحکم'
-                                                );
-                                              }
-                                          );
-                                        },
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                              height: 15.0,
-                                              width: 15.0,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/images/forma_1huk.png'),
-                                                  fit: BoxFit.fill,
-                                                ),
+                                                    updaterTarakeem(this.dropdownvalue1);
+                                                    //updater();
+                                                  });
+                                                },
                                               ),
-                                            ), // <-- Icon
-                                            Text(
-                                              "الحکم ",
-                                              style: TextStyle(
-                                                  fontSize: 10.0, color: Colors.white),
-                                            ), // <-- Text
-                                          ],
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: InkWell(
-                                        splashColor: Colors.green,
-                                        onTap: () {
-
-                                          altarajumModel = AltarajumModel('tab1', 'tab2');
-                                          showDialog(context: context,
-                                              builder: (BuildContext context){
-                                                return CustomDialogBoxAltarajum(
-                                                    altarajumModel: altarajumModel,
-                                                    title: 'التراجم'
-                                                );
-                                              }
-                                          );
-                                        },
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                              height: 15.0,
-                                              width: 15.0,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/images/forma_1tar.png'),
-                                                  fit: BoxFit.fill,
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10.0, left: 40.0),
+                                      child: Container(
+                                        width: 110.0,
+                                        height: 50.0,
+                                        child: Row(
+                                          children: [
+                                            Center(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    border: Border(
+                                                      bottom: BorderSide(
+                                                        //                   <--- right side
+                                                        color: Colors.green,
+                                                        width: 1.0,
+                                                      ),
+                                                      top: BorderSide(
+                                                        //                   <--- right side
+                                                        color:
+                                                        Color.fromARGB(255, 220, 228, 241),
+                                                        width: 1.0,
+                                                      ),
+                                                      left: BorderSide(
+                                                        //                   <--- right side
+                                                        color:
+                                                        Color.fromARGB(255, 220, 228, 241),
+                                                        width: 1.0,
+                                                      ),
+                                                      right: BorderSide(
+                                                        //                   <--- right side
+                                                        color:
+                                                        Color.fromARGB(255, 220, 228, 241),
+                                                        width: 1.0,
+                                                      ),
+                                                    )),
+                                                width: 60.0,
+                                                height: 30.0,
+                                                child: Center(
+                                                  child: TextField(
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 12.0, color: Colors.black),
+                                                    decoration: InputDecoration(
+                                                      hintText: tarakeemNumber == 0
+                                                          ?posobj2.data2![0].hadeesNumberZero.toString()
+                                                          : tarakeemNumber == 1
+                                                          ?posobj2.data2![0].hadeesNumberTOne.toString()
+                                                          : tarakeemNumber == 2
+                                                          ?posobj2.data2![0].hadeesNumberTTwo.toString()
+                                                          : tarakeemNumber == 3
+                                                          ?posobj2.data2![0].hadeesNumberTThree.toString()
+                                                          : tarakeemNumber == 4
+                                                          ?posobj2.data2![0].hadeesNumberTFour.toString()
+                                                          : tarakeemNumber == 5
+                                                          ?posobj2.data2![0].hadeesNumberTFive.toString()
+                                                          : tarakeemNumber == 6
+                                                          ?posobj2.data2![0].hadeesNumberTSix.toString()
+                                                          : tarakeemNumber == 7
+                                                          ?posobj2.data2![0].hadeesNumberTSeven.toString()
+                                                          : tarakeemNumber == 8
+                                                          ?posobj2.data2![0].hadeesNumberTEight.toString()
+                                                          : tarakeemNumber == 9
+                                                          ?posobj2.data2![0].hadeesNumberTNine.toString()
+                                                          : '',
+                                                    ),
+                                                    controller: controller,
+                                                    onSubmitted: (value){
+                                                      setState(() {
+                                                        updaterHadeesNumber(value);
+                                                        controller.text = hadeesNumber;
+                                                      });
+                                                    },
+                                                  ),
                                                 ),
                                               ),
-                                            ), // <-- Icon
-                                            Text(
-                                              "التراجم",
-                                              style: TextStyle(
-                                                  fontSize: 10.0, color: Colors.white),
-                                            ), // <-- Text
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: InkWell(
-                                        splashColor: Colors.green,
-                                        onTap: () {
-
-                                          altarakeemlist.clear();
-                                          altarakeemlist.add(AltarakeemModel('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث', '454'));
-                                          altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '23454'));
-                                          altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '234454'));
-                                          altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '2354'));
-                                          showDialog(context: context,
-                                              builder: (BuildContext context){
-                                                return CustomDialogBoxAltarakeem(
-                                                    altarakeemlist: altarakeemlist,
-                                                    title: 'التراقيم'
-                                                );
-                                              }
-                                          );
-                                        },
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
+                                            ),
                                             Container(
-                                              height: 15.0,
-                                              width: 15.0,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/images/forma_1qim.png'),
-                                                  fit: BoxFit.fill,
+                                              width: 50.0,
+                                              child: Directionality(
+                                                textDirection: TextDirection.rtl,
+                                                child: Text(
+                                                  'حدیث نمبر ',
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontSize: 10.0,
+                                                      fontFamily: 'NotoNastaliqUrdu'),
                                                 ),
                                               ),
-                                            ), // <-- Icon
-                                            Text(
-                                              "التراقيم",
-                                              style: TextStyle(
-                                                  fontSize: 10.0, color: Colors.white),
-                                            ), // <-- Text
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: InkWell(
-                                        splashColor: Colors.green,
-                                        onTap: () {
-                                          alSharrahModel = AlSharrahModel('اس حدیث مبارکہ کے مطابق جو شخص مالی کفالت کرے گا اس کے لئے بھی اتنا ہی اجر جتنا کہ میدان عمل میں شریک شخص کے لئے ہے۔  تو آئیے! مجلس کے ساتھ ماہانہ یا سالانہ بنیادوں پر تعاون کا ایک سلسلہ شروع کریں تاکہ دین حق کے عالمگیر پیغام امن کو دنیا کے کونے کونے تک پہنچایا جا سکے۔ اللہ ہم سب حامی وناصر ہو اور ہمیں اپنے دین حنیف کی خدمت کی خدمت کی توفیق عطا فرمائے۔آمین');
-                                          showDialog(context: context,
-                                              builder: (BuildContext context){
-                                                return CustomDialogBoxAlsharrah(
-                                                    alSharrahModel: alSharrahModel,
-                                                    title: 'شرح '
-                                                );
-                                              }
-                                          );
-                                        },
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Container(
-                                              height: 15.0,
-                                              width: 15.0,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      'assets/images/forma_1sar.png'),
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
-                                            ), // <-- Icon
-                                            Text(
-                                              "شرح ",
-                                              style: TextStyle(
-                                                  fontSize: 10.0, color: Colors.white),
-                                            ), // <-- Text
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -858,11 +471,547 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                   ],
                                 ),
                               ),
+                            ),
+                            Expanded(
+                              child: ListView(
+                                shrinkWrap: true,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 20.0, bottom: 20.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(3),
+                                        color: Colors.white,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 15.0, left: 10.0, right: 10.0),
+                                            child: Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(left: 8.0),
+                                                      child: RichText(
+                                                        text: HTML.toTextSpan(context,
+                                                          "<body><span style='color:green;'>${posobj2.data2![0].hadithBookName.toString()}</span>  <span style='color:red;'>${posobj2.data2![0].kitaabNameARabic.toString()}</span>  <span style='color:black;'>${posobj2.data2![0].baabNameArabic.toString()}</span></body>",
+                                                          defaultTextStyle: TextStyle(
+                                                            fontSize: 13,
+                                                          ),
+                                                        ),
+                                                        maxLines: 4,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 10.0, left: 10.0, right: 10.0),
+                                            child: Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: Container(
+                                                width: double.maxFinite,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: 8.0),
+                                                  child: RichText(
+                                                    text: HTML.toTextSpan(context,
+                                                      posobj2.data2![0].hadithHukamAjmali.toString(),
+                                                      defaultTextStyle: TextStyle(
+                                                        fontSize: 13,
+                                                        color: Color.fromARGB(255, 37, 160, 75),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 10.0, left: 10.0, right: 10.0, bottom: 10.0),
+                                            child: Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: Container(
+                                                width: double.maxFinite,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(left: 8.0),
+                                                  child: RichText(
+                                                    text: HTML.toTextSpan(context,
+                                                      posobj2.data2![0].hadithArabicText.toString(),
+                                                      defaultTextStyle: TextStyle(
+                                                          fontSize: 13,
+                                                          color: Colors.black87,
+                                                          height: 2.5
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 20.0, bottom: 20.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(3),
+                                        color: Colors.white,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 15.0, left: 10.0, right: 10.0),
+                                            child: Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Padding(
+                                                        padding: const EdgeInsets.only(left: 8.0),
+                                                        child: RichText(
+                                                          text: HTML.toTextSpan(context,
+                                                            "<body><span style='color:green;'>${posobj2.data2![0].hadithBookNameUrdu.toString()}</span>  <span style='color:red;'>${posobj2.data2![0].kitaabNameUrdu.toString()}</span>  <span style='color:black;'>${posobj2.data2![0].baabNameUrdu.toString()}</span></body>",
+                                                            defaultTextStyle: TextStyle(
+                                                              fontSize: 10,
+                                                              fontFamily: 'NotoNastaliqUrdu',
+                                                            ),
+                                                            overrideStyle: {
+                                                              "p": TextStyle(
+                                                                  fontSize: 10,
+                                                                  fontFamily: 'NotoNastaliqUrdu'
+                                                              ),
+                                                            },
+                                                          ),
+                                                          maxLines: 4,
+                                                        )
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 10.0, left: 10.0, right: 10.0, bottom: 10.0),
+                                            child: Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: Container(
+                                                width: double.maxFinite,
+                                                child: Padding(
+                                                    padding: const EdgeInsets.only(left: 8.0),
+                                                    child: RichText(
+                                                      text: HTML.toTextSpan(context,
+                                                        tarakeemNumber == 0
+                                                            ?posobj2.data2![0].hadithUrduTextZero.toString()
+                                                            : tarakeemNumber == 1
+                                                            ?posobj2.data2![0].hadithUrduTextOne.toString()
+                                                            : tarakeemNumber == 2
+                                                            ?posobj2.data2![0].hadithUrduTextTwo.toString()
+                                                            : tarakeemNumber == 3
+                                                            ?posobj2.data2![0].hadithUrduTextThree.toString()
+                                                            : tarakeemNumber == 4
+                                                            ?posobj2.data2![0].hadithUrduTextFour.toString()
+                                                            : tarakeemNumber == 5
+                                                            ?posobj2.data2![0].hadithUrduTextFive.toString()
+                                                            : tarakeemNumber == 6
+                                                            ?posobj2.data2![0].hadithUrduTextSix.toString()
+                                                            : tarakeemNumber == 7
+                                                            ?posobj2.data2![0].hadithUrduTextSeven.toString()
+                                                            : tarakeemNumber == 8
+                                                            ?posobj2.data2![0].hadithUrduTextEight.toString()
+                                                            : tarakeemNumber == 9
+                                                            ?posobj2.data2![0].hadithUrduTextNine.toString()
+                                                            : '',
+                                                        defaultTextStyle: TextStyle(
+                                                          fontSize: 10,
+                                                          fontFamily: 'NotoNastaliqUrdu',
+                                                          height: 4.0,
+                                                        ),
+                                                      ),
+                                                    )
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border(
+                                          top: BorderSide(
+                                            //                   <--- right side
+                                            color: Colors.green,
+                                            width: 1.0,
+                                          ),
+                                        )),
+                                    height: 50.0,
+                                    width: double.maxFinite,
+                                    child: chapterbar
+                                        ? new Expanded(
+                                        child: Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: Slider(
+                                              value: _value.toDouble(),
+                                              min: 1.0,
+                                              max: widget.bookid == 1
+                                                  ?7563.0
+                                                  :widget.bookid == 2
+                                                  ?7500.0
+                                                  :widget.bookid == 3
+                                                  ?4800.0
+                                                  :widget.bookid == 4
+                                                  ?4330.0
+                                                  :widget.bookid == 5
+                                                  ?5700.0
+                                                  :widget.bookid == 6
+                                                  ?4000.0
+                                                  :7563.0,
+                                              divisions: 100,
+                                              activeColor: Colors.green,
+                                              inactiveColor:
+                                              Color.fromARGB(255, 220, 228, 241),
+                                              label: 'Set volume value',
+                                              onChanged: (double newValue) {
+                                                setState(() {
+                                                  _value = newValue;
+                                                  int value = _value.round();
+                                                  hadeesNumber = value.toString();
+                                                  updaterHadeesNumber(hadeesNumber);
+
+                                                  print('bookid ${widget.bookid}');
+                                                  print('slider ${value}');
+
+                                                });
+                                              },
+                                              semanticFormatterCallback: (double newValue) {
+                                                return '${newValue.round()} dollars';
+                                              }),
+                                        ))
+                                        : Center(
+                                      child: InkWell(
+                                        splashColor: Colors.green,
+                                        onTap: () {
+
+                                          almozooList.clear();
+                                          almozooList.add('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث');
+                                          almozooList.add('الحكم على الحديث ى الحديث الحكم على الحديث');
+                                          almozooList.add('الحكم على الحديث حكم على الحديث');
+
+                                          mozooatList.clear();
+                                          mozooatList.add('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث');
+                                          mozooatList.add('الحكم على الحديث ى الحديث الحكم على الحديث');
+                                          mozooatList.add('الحكم على الحديث حكم على الحديث');
+
+                                          showDialog(context: context,
+                                              builder: (BuildContext context){
+                                                return CustomDialogBoxAlMozoo(
+                                                    hadithNumber: hadeesNumber,
+                                                    hadithBookID: widget.bookid,
+                                                    title: 'موضوعات '
+                                                );
+                                              }
+                                          );
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Container(
+                                              height: 15.0,
+                                              width: 15.0,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'assets/images/l_0001.png'),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ), // <-- Icon
+                                            Text(
+                                              "موضوعات ",
+                                              style: TextStyle(
+                                                  fontSize: 10.0, color: Colors.black),
+                                            ), // <-- Text
+                                          ],
+                                        ),
+                                      ),
+                                    )),
+                                Container(
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage('assets/images/rectangle_798.png'),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: InkWell(
+                                            splashColor: Colors.green,
+                                            onTap: () {
+                                              setState(() {
+                                                if (chapterbar == true)
+                                                  chapterbar = false;
+                                                else
+                                                  chapterbar = true;
+                                              });
+                                            },
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 25.0,
+                                                  width: 25.0,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image:
+                                                      AssetImage('assets/images/dotss.png'),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ), // <-- Icon
+                                                // <-- Text
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: InkWell(
+                                            splashColor: Colors.green,
+                                            onTap: () {
+                                              altahreejlist.clear();
+                                              altahreejlist.add(AltahreejModel('book_name', '234454'));
+                                              altahreejlist.add(AltahreejModel('book_name', '23443354'));
+                                              altahreejlist.add(AltahreejModel('book_name', '2354'));
+                                              altahreejlist.add(AltahreejModel('book_name', '454'));
+                                              showDialog(context: context,
+                                                  builder: (BuildContext context){
+                                                    return CustomDialogBox(
+                                                        altahreejlist: altahreejlist,
+                                                        title: 'التخريج'
+                                                    );
+                                                  }
+                                              );
+                                            },
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 15.0,
+                                                  width: 15.0,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/images/forma_1tkh.png'),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ), // <-- Icon
+                                                Text(
+                                                  "التخريج",
+                                                  style: TextStyle(
+                                                      fontSize: 10.0, color: Colors.white),
+                                                ), // <-- Text
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: InkWell(
+                                            splashColor: Colors.green,
+                                            onTap: () {
+
+                                              alhukmlist.clear();
+                                              alhukmlist.add(AlhukmModel('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث', 'الحكم يث'));
+                                              alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
+                                              alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
+                                              alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
+                                              showDialog(context: context,
+                                                  builder: (BuildContext context){
+                                                    return CustomDialogBoxAlHukm(
+                                                        alhukmModel: alhukmlist,
+                                                        title: 'الحکم'
+                                                    );
+                                                  }
+                                              );
+                                            },
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 15.0,
+                                                  width: 15.0,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/images/forma_1huk.png'),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ), // <-- Icon
+                                                Text(
+                                                  "الحکم ",
+                                                  style: TextStyle(
+                                                      fontSize: 10.0, color: Colors.white),
+                                                ), // <-- Text
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: InkWell(
+                                            splashColor: Colors.green,
+                                            onTap: () {
+
+                                              altarajumModel = AltarajumModel('tab1', 'tab2');
+                                              showDialog(context: context,
+                                                  builder: (BuildContext context){
+                                                    return CustomDialogBoxAltarajum(
+                                                        altarajumModel: altarajumModel,
+                                                        title: 'التراجم'
+                                                    );
+                                                  }
+                                              );
+                                            },
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 15.0,
+                                                  width: 15.0,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/images/forma_1tar.png'),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ), // <-- Icon
+                                                Text(
+                                                  "التراجم",
+                                                  style: TextStyle(
+                                                      fontSize: 10.0, color: Colors.white),
+                                                ), // <-- Text
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: InkWell(
+                                            splashColor: Colors.green,
+                                            onTap: () {
+
+                                              altarakeemlist.clear();
+                                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث', '454'));
+                                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '23454'));
+                                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '234454'));
+                                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '2354'));
+                                              showDialog(context: context,
+                                                  builder: (BuildContext context){
+                                                    return CustomDialogBoxAltarakeem(
+                                                        altarakeemlist: altarakeemlist,
+                                                        title: 'التراقيم'
+                                                    );
+                                                  }
+                                              );
+                                            },
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 15.0,
+                                                  width: 15.0,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/images/forma_1qim.png'),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ), // <-- Icon
+                                                Text(
+                                                  "التراقيم",
+                                                  style: TextStyle(
+                                                      fontSize: 10.0, color: Colors.white),
+                                                ), // <-- Text
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: InkWell(
+                                            splashColor: Colors.green,
+                                            onTap: () {
+                                              alSharrahModel = AlSharrahModel('اس حدیث مبارکہ کے مطابق جو شخص مالی کفالت کرے گا اس کے لئے بھی اتنا ہی اجر جتنا کہ میدان عمل میں شریک شخص کے لئے ہے۔  تو آئیے! مجلس کے ساتھ ماہانہ یا سالانہ بنیادوں پر تعاون کا ایک سلسلہ شروع کریں تاکہ دین حق کے عالمگیر پیغام امن کو دنیا کے کونے کونے تک پہنچایا جا سکے۔ اللہ ہم سب حامی وناصر ہو اور ہمیں اپنے دین حنیف کی خدمت کی خدمت کی توفیق عطا فرمائے۔آمین');
+                                              showDialog(context: context,
+                                                  builder: (BuildContext context){
+                                                    return CustomDialogBoxAlsharrah(
+                                                        alSharrahModel: alSharrahModel,
+                                                        title: 'شرح '
+                                                    );
+                                                  }
+                                              );
+                                            },
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: 15.0,
+                                                  width: 15.0,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: AssetImage(
+                                                          'assets/images/forma_1sar.png'),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                ), // <-- Icon
+                                                Text(
+                                                  "شرح ",
+                                                  style: TextStyle(
+                                                      fontSize: 10.0, color: Colors.white),
+                                                ), // <-- Text
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
                             )
                           ],
-                        )
-                      ],
-                    );
+                        );
+                      }
+                    else
+                      {
+                        return Text('No Data Present');
+                      }
+
                   } else if (snapshot.hasError) {
                     return Center( child: Text('${snapshot.error}'));
                   }
