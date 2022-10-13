@@ -2,9 +2,9 @@ import 'package:animations/animations.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:mohaddis/ChapterScreens/SubChapterScreen1.dart';
+import 'package:mohaddis/BookScreens/SubBookHomeScreen.dart';
+import 'package:mohaddis/ChapterScreens/SubChapterScreen2.dart';
 import 'package:mohaddis/FrontEnd/HomeScreen.dart';
-import 'package:mohaddis/ModelClasses/TopicModel.dart';
 import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
 import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
@@ -12,28 +12,22 @@ import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_html_css/simple_html_css.dart';
 
-import '../BookScreens/SubBookHomeScreen.dart';
-import '../CustomScreens/DropDownWidget2.dart';
-import 'SubChapterScreen2.dart';
+import '../../CustomScreens/DropDownWidget2.dart';
 
-class SubChapterScreen1 extends StatefulWidget {
+class MozooAhadithList extends StatefulWidget {
 
-  final String id;
-  final String name;
-  final List<TopicModel> completelist;
-  const SubChapterScreen1({Key? key, required this.id, required this.name, required this.completelist}) : super(key: key);
+  final String title;
+  final String topicID;
+
+  const MozooAhadithList({Key? key, required this.title, required this.topicID}) : super(key: key);
 
   @override
-  State<SubChapterScreen1> createState() => _SubChapterScreen1State();
+  State<MozooAhadithList> createState() => _MozooAhadithListState();
 }
 
-class _SubChapterScreen1State extends State<SubChapterScreen1> {
+class _MozooAhadithListState extends State<MozooAhadithList> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  int count = 0;
-  List<String> list = [];
-  List<String> idlist = [];
-  bool check = false;
 
   List<String> spinnerItems1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   List<String> spinnerItems2 = [
@@ -54,96 +48,40 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
   pos posobj = new pos();
 
 
-  List<String> dropdownTarakeemList = [];
-  List<String> dropdownTarajumList = [];
-  List<String> dropdownHukamList = [];
-
-  getSP() async{
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    dropdownTarakeemList.add(prefs.getString('tarakeem1').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem2').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem3').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem4').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem5').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem6').toString());
-
-    dropdownTarajumList.add(prefs.getString('tarajum1').toString());
-    dropdownTarajumList.add(prefs.getString('tarajum2').toString());
-    dropdownTarajumList.add(prefs.getString('tarajum3').toString());
-    dropdownTarajumList.add(prefs.getString('tarajum4').toString());
-    dropdownTarajumList.add(prefs.getString('tarajum5').toString());
-    dropdownTarajumList.add(prefs.getString('tarajum6').toString());
-
-    dropdownHukamList.add(prefs.getString('hukam1').toString());
-    dropdownHukamList.add(prefs.getString('hukam2').toString());
-    dropdownHukamList.add(prefs.getString('hukam3').toString());
-    dropdownHukamList.add(prefs.getString('hukam4').toString());
-    dropdownHukamList.add(prefs.getString('hukam5').toString());
-    dropdownHukamList.add(prefs.getString('hukam6').toString());
-
-  }
-
-
   void updater()
   {
     setState(() {
       listUsers = fetchUsers(
-          widget.id,
+          widget.topicID,
           dropdownvalue1,
           dropdownvalue2);
     });
   }
 
-
   @override
   void initState() {
-
-    getSP();
-
-    for(int i=0;i<widget.completelist.length;i++)
-    {
-      if(widget.completelist[i].parentID.toString() == widget.id)
-      {
-        list.add(widget.completelist[i].topicUrdu.toString());
-        idlist.add(widget.completelist[i].iDPK.toString());
-        print('${widget.id} yes present ${list.length}');
-      }
-    }
-    
-    if(list.isNotEmpty)
-      {
-        check = true;
-      }
-    else{
-      check = false;
-      setState(() {
-        listUsers = fetchUsers(
-            widget.id,
-            dropdownvalue1,
-            dropdownvalue2);
-      });
-    }
-    
-    
+    setState(() {
+      listUsers = fetchUsers(
+          widget.topicID,
+          dropdownvalue1,
+          dropdownvalue2);
+    });
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    count = 0;
     return Scaffold(
         key: _scaffoldKey,
         drawer: _drawer(),
-        backgroundColor: Color.fromARGB(255,220, 228, 241),
+        backgroundColor: Color.fromARGB(255, 220, 228, 241),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60), // Set this height
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    'assets/images/rectangle_798.png'),
+                image: AssetImage('assets/images/rectangle_798.png'),
                 fit: BoxFit.fill,
               ),
             ),
@@ -152,11 +90,11 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0,top: 10.0),
+                    padding: const EdgeInsets.only(left: 20.0, top: 20.0),
                     child: Column(
                       children: [
                         GestureDetector(
-                          onTap:(){
+                          onTap: () {
                             _scaffoldKey.currentState?.openDrawer();
                           },
                           child: Container(
@@ -164,8 +102,7 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                             height: 35,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/group_36.png'),
+                                image: AssetImage('assets/images/group_36.png'),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -175,38 +112,50 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      children: [
-                        Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 6.0),
-                              child: Text(widget.name,
-                                style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.white,
-                                    fontFamily: 'NotoNastaliqUrdu'
-                                ),),
+                    child: Center(
+                        child: Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Html(
+                              data: widget.title.toString(),
+                              style: {
+                                "body": Style(
+                                  fontSize: FontSize(14.0),
+                                  color: Colors.white,
+                                  fontFamily: 'NotoNastaliqUrdu',
+                                  textAlign: TextAlign.center,
+                                  maxLines: 1,
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                                "p": Style(
+                                  fontSize: FontSize(14.0),
+                                  fontFamily: 'NotoNastaliqUrdu',
+                                  color: Colors.white,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 1,
+                                  textOverflow: TextOverflow.ellipsis,
+                                ),
+                              },
                             )
-                        ),
-                      ],
-                    ),
+                        )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 20.0,top: 20.0),
+                    padding: const EdgeInsets.only(right: 20.0, top: 30.0),
                     child: Column(
                       children: [
                         GestureDetector(
-                          onTap:(){
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => HomeScreen()));
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => HomeScreen()));
                           },
                           child: Container(
                             width: 25,
                             height: 15,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/group_38.png'),
+                                image: AssetImage('assets/images/group_38.png'),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -220,106 +169,7 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
             ),
           ),
         ),
-        body: check 
-            ?Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: Container(
-                height: 40,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: TextField(
-                    textAlign: TextAlign.right,
-                    decoration: InputDecoration(
-                        hintText: 'موضوع تلاش کریں',
-                        hintStyle: TextStyle(
-                            fontSize: 10.0,
-                            fontFamily: 'NotoNastaliqUrdu'
-                        ),
-                        prefixIcon: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/backbutton.png'),
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            child: Icon(Icons.search, color: Colors.white,))),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    count++;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
-                      child: Container(
-                        height: 40.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
-                          color: Colors.white,
-                        ),
-                        child: ListTile(
-                          leading: const Icon(Icons.arrow_back_ios_new, color: Colors.grey, size: 15.0,),
-                          title: Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: RichText(
-                                text: HTML.toTextSpan(context,
-                                  '${list[index].toString()}',
-                                  defaultTextStyle: TextStyle(
-                                    fontSize: 10,
-                                    fontFamily: 'NotoNastaliqUrdu',
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                maxLines: 1,
-                              ),
-                            ),
-                          ),
-                          trailing: Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Container(
-                              width: 15,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/icon.png'),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          ),
-                          selected: true,
-                          onTap: () async{
-                            SharedPreferences prefs = await SharedPreferences.getInstance();
-                            prefs.setString('chapterID', "${idlist[index].toString()}");
-                            prefs.setString('mainchapter', "${list[index].toString()}");
-                            setState(() {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) => SubChapterScreen1(id: "${idlist[index].toString()}", name: '${list[index].toString()}', completelist: widget.completelist)));
-                              count = 0;
-                            });
-                          },
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          ],
-        )
-            : FutureBuilder<pos>(
+        body: FutureBuilder<pos>(
           future: listUsers,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -558,15 +408,12 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                                       "${posobj.data![index].hadithUrduText.toString()}");
                                   prefs.setString('HadithNumber',
                                       "${posobj.data![index].hadeesNumber.toString()}");
-
-                                  String tarakeem = dropdownTarakeemList[int.parse(posobj.data![index].hadithBookID.toString()) - 1];
-                                  String translation = dropdownTarajumList[int.parse(posobj.data![index].hadithBookID.toString()) - 1];
-                                  String hashiya = translation;
-                                  String hukam = dropdownHukamList[int.parse(posobj.data![index].hadithBookID.toString()) - 1];
+                                  String? mainbookID = prefs.getString('mainbookID');
+                                  String? mainbook = prefs.getString('mainbookName');
 
                                   setState(() {
                                     Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) => SubBookHomeScreen(id: "${posobj.data![index].hadeesNumber.toString()}", name: '${posobj.data![index].hadithBookNameUrdu.toString()}', bookid: '${posobj.data![index].hadithBookID.toString()}', tarakeem: '${tarakeem}', translation: '${translation}', hashiya: '${hashiya}', hukam: '${hukam}')));
+                                        MaterialPageRoute(builder: (_) => MozooAhadithList(title: 'title', topicID: '')));
 
                                   });
                                 },
@@ -584,14 +431,10 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
               child: CircularProgressIndicator(backgroundColor: Colors.green),
             );
           },
-        )
-
-    );
+        ));
   }
 
-
-
-  Widget _drawer(){
+  Widget _drawer() {
     return Drawer(
       elevation: 10.0,
       child: Container(
@@ -603,9 +446,7 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
             Column(
               children: [
                 GestureDetector(
-                  onTap: () {
-
-                  },
+                  onTap: () {},
                   child: Row(
                     children: [
                       Padding(
@@ -627,8 +468,8 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                         height: 50,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(
-                                'assets/images/layer_7_copy_2.png'),
+                            image:
+                            AssetImage('assets/images/layer_7_copy_2.png'),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -643,7 +484,8 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                 SizedBox(
                   height: 10.0,
                 ),
-                _menuOptions('assets/images/group_48.png', 'کچھ ہمارے بارے میں'),
+                _menuOptions(
+                    'assets/images/group_48.png', 'کچھ ہمارے بارے میں'),
                 SizedBox(
                   height: 10.0,
                 ),
@@ -657,7 +499,6 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                 ),
               ],
             ),
-
             Align(
               alignment: Alignment.bottomRight,
               child: Container(
@@ -665,14 +506,13 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                 height: 130,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(
-                        'assets/images/pattern.png'),
+                    image: AssetImage('assets/images/pattern.png'),
                     fit: BoxFit.fill,
                   ),
                 ),
-              ),)
+              ),
+            )
           ],
-
         ),
       ),
     );
@@ -720,8 +560,7 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                   style: TextStyle(
                       fontSize: 10.0,
                       color: Colors.grey[700],
-                      fontFamily: 'NotoNastaliqUrdu'
-                  ),
+                      fontFamily: 'NotoNastaliqUrdu'),
                 ),
                 SizedBox(
                   width: 30.0,
@@ -736,7 +575,6 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                     ),
                   ),
                 ),
-
               ],
             ),
           ),
@@ -745,9 +583,6 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
     );
   }
 }
-
-
-
 
 
 Future<pos> fetchUsers(String id, String pagenumber, String number) async {
@@ -905,5 +740,3 @@ class Data {
   }
 
 }
-
-

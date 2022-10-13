@@ -845,10 +845,50 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                             onTap: () {
 
                                               alhukmlist.clear();
-                                              alhukmlist.add(AlhukmModel('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث', 'الحكم يث'));
-                                              alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
-                                              alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
-                                              alhukmlist.add(AlhukmModel('الحكم على الحديث', 'الحكم يث'));
+                                              if(posobj2.data2![0].hadithHukamAjmali.toString().isNotEmpty)
+                                                {
+                                                  alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmali.toString(), ' إجماع علماء المسلمين'));
+                                                }
+                                              if(posobj2.data2![0].hadithHukamAjmaliOne.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliOne.toString(), ' إجماع علماء المسلمين'));
+                                              }
+                                              if(posobj2.data2![0].hadithHukamAjmaliTwo.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliTwo.toString(), ' إجماع علماء المسلمين'));
+                                              }
+                                              if(posobj2.data2![0].hadithHukamAjmaliThree.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliThree.toString(), ' إجماع علماء المسلمين'));
+                                              }
+                                              if(posobj2.data2![0].hadithHukamAjmaliFour.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliFour.toString(), ' إجماع علماء المسلمين'));
+                                              }
+                                              if(posobj2.data2![0].hadithHukamAjmaliFive.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliFive.toString(), ' إجماع علماء المسلمين'));
+                                              }
+                                              if(posobj2.data2![0].hadithHukamAjmaliSix.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliSix.toString(), ' إجماع علماء المسلمين'));
+                                              }
+                                              if(posobj2.data2![0].hadithHukamAjmaliSeven.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliSeven.toString(), ' إجماع علماء المسلمين'));
+                                              }
+                                              if(posobj2.data2![0].hadithHukamAjmaliEight.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliEight.toString(), ' إجماع علماء المسلمين'));
+                                              }
+                                              if(posobj2.data2![0].hadithHukamAjmaliNine.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliNine.toString(), ' إجماع علماء المسلمين'));
+                                              }
+                                              if(posobj2.data2![0].hadithHukamAjmaliTen.toString().isNotEmpty)
+                                              {
+                                                alhukmlist.add(AlhukmModel(posobj2.data2![0].hadithHukamAjmaliTen.toString(), ' إجماع علماء المسلمين'));
+                                              }
                                               showDialog(context: context,
                                                   builder: (BuildContext context){
                                                     return CustomDialogBoxAlHukm(

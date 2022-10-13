@@ -9,10 +9,14 @@ import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../ModelClasses/TopicModel.dart';
+
 class SubChapterScreen2 extends StatefulWidget {
 
+  final String id;
   final String name;
-  const SubChapterScreen2({Key? key, required this.name}) : super(key: key);
+  final List<TopicModel> completelist;
+  const SubChapterScreen2({Key? key, required this.id, required this.name, required this.completelist}) : super(key: key);
 
   @override
   State<SubChapterScreen2> createState() => _SubChapterScreen2State();

@@ -274,7 +274,7 @@ class _CustomDialogBoxAlHukmState extends State<CustomDialogBoxAlHukm> {
                                           color: Color.fromARGB(255, 37, 160, 75),
                                         ),
                                         child: Text(
-                                          'الحكم على الحديث',
+                                          'اسم العالم',
                                         ),
                                       ),
                                     ],
@@ -338,7 +338,7 @@ class _CustomDialogBoxAlHukmState extends State<CustomDialogBoxAlHukm> {
                       ))
                   : Container(
                       height: 400,
-                      color: Colors.grey,
+                      color: Colors.white,
                     ),
             ),
           ],

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mohaddis/BookScreens/HadithViewSubScreens/MozooAhadithList.dart';
 import 'package:mohaddis/ModelClasses/AlhukmModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_html_css/simple_html_css.dart';
@@ -291,20 +292,28 @@ class _CustomDialogBoxAlMozooState extends State<CustomDialogBoxAlMozoo> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding: const EdgeInsets.only(left: 8.0, right: 10.0, top: 0.0),
-                                                    child: Container(
-                                                      width: double.maxFinite,
-                                                      child: Align(
-                                                        alignment: Alignment.centerRight,
-                                                        child: DefaultTextStyle(
-                                                          style: TextStyle(
-                                                              fontSize: 8.0,
-                                                              color: Colors.black,
-                                                              fontFamily: 'NotoNastaliqUrdu',
-                                                              height: 4.5),
-                                                          child: Text(
-                                                            posobj.data![Index].topicArabic.toString(),
-                                                            textAlign: TextAlign.right,
+                                                    child: GestureDetector(
+                                                      onTap:(){
+                                                        setState(() {
+                                                          Navigator.push(context,
+                                                              MaterialPageRoute(builder: (_) => MozooAhadithList(title: 'title', topicID: posobj.data![Index].mozuID.toString())));
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        width: double.maxFinite,
+                                                        child: Align(
+                                                          alignment: Alignment.centerRight,
+                                                          child: DefaultTextStyle(
+                                                            style: TextStyle(
+                                                                fontSize: 8.0,
+                                                                color: Colors.black,
+                                                                fontFamily: 'NotoNastaliqUrdu',
+                                                                height: 4.5),
+                                                            child: Text(
+                                                              posobj.data![Index].topicArabic.toString(),
+                                                              textAlign: TextAlign.right,
 
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -348,20 +357,28 @@ class _CustomDialogBoxAlMozooState extends State<CustomDialogBoxAlMozoo> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding: const EdgeInsets.only(left: 8.0, right: 10.0, top: 0.0),
-                                                    child: Container(
-                                                      width: double.maxFinite,
-                                                      child: Align(
-                                                        alignment: Alignment.centerRight,
-                                                        child: DefaultTextStyle(
-                                                          style: TextStyle(
-                                                              fontSize: 8.0,
-                                                              color: Colors.black,
-                                                              fontFamily: 'NotoNastaliqUrdu',
-                                                              height: 4.5),
-                                                          child: Text(
-                                                            posobj.data![Index].topicUrdu.toString(),
-                                                            textAlign: TextAlign.right,
+                                                    child: GestureDetector(
+                                                      onTap:(){
+                                                        setState(() {
+                                                          Navigator.push(context,
+                                                              MaterialPageRoute(builder: (_) => MozooAhadithList(title: 'title', topicID: posobj.data![Index].mozuID.toString())));
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        width: double.maxFinite,
+                                                        child: Align(
+                                                          alignment: Alignment.centerRight,
+                                                          child: DefaultTextStyle(
+                                                            style: TextStyle(
+                                                                fontSize: 8.0,
+                                                                color: Colors.black,
+                                                                fontFamily: 'NotoNastaliqUrdu',
+                                                                height: 4.5),
+                                                            child: Text(
+                                                              posobj.data![Index].topicUrdu.toString(),
+                                                              textAlign: TextAlign.right,
 
+                                                            ),
                                                           ),
                                                         ),
                                                       ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:mohaddis/ChapterScreens/SubChapterScreen1.dart';
 import 'package:mohaddis/FrontEnd/HomeScreen.dart';
+import 'package:mohaddis/ModelClasses/TopicModel.dart';
 import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
 import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
@@ -21,6 +22,11 @@ class ChapterScreen extends StatefulWidget {
 class _ChapterScreenState extends State<ChapterScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  int count = 0;
+  List<String> list = [];
+  List<String> idlist = [];
+  List<TopicModel> _completelist = [];
+
   late Future<pos> listUsers;
   pos posobj = new pos();
 
@@ -33,6 +39,7 @@ class _ChapterScreenState extends State<ChapterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    count = 0;
     return Scaffold(
       key: _scaffoldKey,
       drawer: _drawer(),
@@ -126,8 +133,23 @@ class _ChapterScreenState extends State<ChapterScreen> {
           if (snapshot.hasData) {
             posobj = snapshot.data!;
 
+            list.clear();
+            idlist.clear();
 
-            print('yes present');
+            for(int i=0;i<posobj.data!.length;i++)
+              {
+                _completelist.add(TopicModel(posobj.data![i].iDPK.toString(), posobj.data![i].parentID.toString(), posobj.data![i].seqID.toString(), posobj.data![i].topicUrdu.toString()));
+
+                if(posobj.data![i].parentID.toString() == '1')
+                  {
+                    list.add(posobj.data![i].topicUrdu.toString());
+                    idlist.add(posobj.data![i].iDPK.toString());
+                    print('yes present ${list.length}');
+                  }
+
+              }
+
+
 
             return Column(
               children: [
@@ -165,8 +187,9 @@ class _ChapterScreenState extends State<ChapterScreen> {
                 Expanded(
                   child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: posobj.data?.length,
+                      itemCount: list.length,
                       itemBuilder: (BuildContext context, int index) {
+                        count++;
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
                           child: Container(
@@ -183,7 +206,7 @@ class _ChapterScreenState extends State<ChapterScreen> {
                                   textDirection: TextDirection.rtl,
                                   child: RichText(
                                     text: HTML.toTextSpan(context,
-                                      posobj.data![index].topicUrdu.toString(),
+                                      '${count} ${list[index].toString()}',
                                       defaultTextStyle: TextStyle(
                                         fontSize: 10,
                                         fontFamily: 'NotoNastaliqUrdu',
@@ -211,11 +234,12 @@ class _ChapterScreenState extends State<ChapterScreen> {
                               selected: true,
                               onTap: () async{
                                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                                prefs.setString('chapterID', "${posobj.data![index].iDPK.toString()}");
-                                prefs.setString('mainchapter', "${posobj.data![index].topicUrdu.toString()}");
+                                prefs.setString('chapterID', "${idlist[index].toString()}");
+                                prefs.setString('mainchapter', "${list[index].toString()}");
                                 setState(() {
                                   Navigator.push(context,
-                                      MaterialPageRoute(builder: (_) => SubChapterScreen1(id: "${posobj.data![index].iDPK.toString()}", name: '${posobj.data![index].topicUrdu.toString()}')));
+                                      MaterialPageRoute(builder: (_) => SubChapterScreen1(id: "${idlist[index].toString()}", name: '${list[index].toString()}', completelist: _completelist)));
+
                                 });
                               },
                             ),
