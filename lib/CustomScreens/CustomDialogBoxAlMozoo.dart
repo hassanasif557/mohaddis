@@ -296,7 +296,7 @@ class _CustomDialogBoxAlMozooState extends State<CustomDialogBoxAlMozoo> {
                                                       onTap:(){
                                                         setState(() {
                                                           Navigator.push(context,
-                                                              MaterialPageRoute(builder: (_) => MozooAhadithList(title: 'title', topicID: posobj.data![Index].mozuID.toString())));
+                                                              MaterialPageRoute(builder: (_) => MozooAhadithList(title: posobj.data![Index].topicUrdu.toString(), topicID: posobj.data![Index].mozuID.toString())));
                                                         });
                                                       },
                                                       child: Container(

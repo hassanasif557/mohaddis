@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mohaddis/ModelClasses/AlSharrahModel.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 
 import '../ModelClasses/AltahreejModel.dart';
 import '../ModelClasses/AltarakeemModel.dart';
@@ -126,10 +127,19 @@ class _CustomDialogBoxAlsharrahState extends State<CustomDialogBoxAlsharrah> {
                                       color: Colors.black,
                                   fontFamily: 'NotoNastaliqUrdu',
                                   height: 4),
-                                  child: Text(
-                                    alSharrahModel.sharrah,
-                                    textAlign: TextAlign.right,
-
+                                  child: Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: RichText(
+                                      text: HTML.toTextSpan(context,
+                                        alSharrahModel.sharrah,
+                                        defaultTextStyle: TextStyle(
+                                          fontSize: 10,
+                                          height: 4.0,
+                                          fontFamily: 'NotoNastaliqUrdu',
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

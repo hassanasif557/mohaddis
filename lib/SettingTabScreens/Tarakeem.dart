@@ -482,11 +482,54 @@ class _TarakeemState extends State<Tarakeem> {
             onTap: () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs.setString('tarakeem1', dropdownvalue1);
+              for(int i=0;i<spinnerItems1.length;i++)
+                {
+                  if(spinnerItems1[i] == dropdownvalue1)
+                    {
+                      prefs.setInt('tarakeemint1', i+1);
+                    }
+                }
+
               prefs.setString('tarakeem2', dropdownvalue2);
+              for(int i=0;i<spinnerItems2.length;i++)
+              {
+                if(spinnerItems2[i] == dropdownvalue2)
+                {
+                  prefs.setInt('tarakeemint2', i+1);
+                }
+              }
               prefs.setString('tarakeem3', dropdownvalue3);
+              for(int i=0;i<spinnerItems3.length;i++)
+              {
+                if(spinnerItems3[i] == dropdownvalue3)
+                {
+                  prefs.setInt('tarakeemint3', i+1);
+                }
+              }
               prefs.setString('tarakeem4', dropdownvalue4);
+              for(int i=0;i<spinnerItems4.length;i++)
+              {
+                if(spinnerItems4[i] == dropdownvalue4)
+                {
+                  prefs.setInt('tarakeemint4', i+1);
+                }
+              }
               prefs.setString('tarakeem5', dropdownvalue5);
+              for(int i=0;i<spinnerItems5.length;i++)
+              {
+                if(spinnerItems5[i] == dropdownvalue5)
+                {
+                  prefs.setInt('tarakeemint5', i+1);
+                }
+              }
               prefs.setString('tarakeem6', dropdownvalue6);
+              for(int i=0;i<spinnerItems6.length;i++)
+              {
+                if(spinnerItems6[i] == dropdownvalue6)
+                {
+                  prefs.setInt('tarakeemint6', i+1);
+                }
+              }
             },
             child: Container(
               width: double.maxFinite,

@@ -54,19 +54,19 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
   pos posobj = new pos();
 
 
-  List<String> dropdownTarakeemList = [];
+  List<int> dropdownTarakeemList = [];
   List<String> dropdownTarajumList = [];
   List<String> dropdownHukamList = [];
 
   getSP() async{
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    dropdownTarakeemList.add(prefs.getString('tarakeem1').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem2').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem3').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem4').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem5').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem6').toString());
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint1') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint2') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint3') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint4') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint5') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint6') ?? 1);
 
     dropdownTarajumList.add(prefs.getString('tarajum1').toString());
     dropdownTarajumList.add(prefs.getString('tarajum2').toString());
@@ -559,7 +559,7 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                                   prefs.setString('HadithNumber',
                                       "${posobj.data![index].hadeesNumber.toString()}");
 
-                                  String tarakeem = dropdownTarakeemList[int.parse(posobj.data![index].hadithBookID.toString()) - 1];
+                                  String tarakeem = dropdownTarakeemList[int.parse(posobj.data![index].hadithBookID.toString()) - 1].toString();
                                   String translation = dropdownTarajumList[int.parse(posobj.data![index].hadithBookID.toString()) - 1];
                                   String hashiya = translation;
                                   String hukam = dropdownHukamList[int.parse(posobj.data![index].hadithBookID.toString()) - 1];

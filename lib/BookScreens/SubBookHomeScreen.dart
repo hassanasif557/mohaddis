@@ -66,6 +66,12 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
 
   int tarakeemNumber = 0;
   String hadeesNumber = '';
+  String bookNameEng = '';
+  String bookNameUrdu = '';
+  String kitaabName = '';
+  String baabName = '';
+  String hadithArabic = '';
+  String hadithUrdu = '';
 
   void updaterTarakeem(String tarakeem)
   {
@@ -295,6 +301,15 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     posobj2 = snapshot.data!;
+
+                    // For Copy and Sharing content
+                    bookNameEng = posobj2.data2![0].hadithBookNameEng.toString();
+                    bookNameUrdu = posobj2.data2![0].hadithBookNameUrdu.toString();
+                    kitaabName = posobj2.data2![0].kitaabNameUrdu.toString();
+                    baabName = posobj2.data2![0].baabNameUrdu.toString();
+                    hadithArabic = posobj2.data2![0].hadithArabicText.toString();
+                    hadithUrdu = posobj2.data2![0].hadithUrduText.toString();
+
 
                     if(posobj2.data2!.isNotEmpty)
                       {
@@ -926,7 +941,7 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                             splashColor: Colors.green,
                                             onTap: () {
 
-                                              altarajumModel = AltarajumModel('tab1', 'tab2');
+                                              altarajumModel = AltarajumModel(posobj2.data2![0].hadithUrduTextZero.toString(), posobj2.data2![0].hadithUrduTextOne.toString());
                                               showDialog(context: context,
                                                   builder: (BuildContext context){
                                                     return CustomDialogBoxAltarajum(
@@ -965,10 +980,16 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                             onTap: () {
 
                                               altarakeemlist.clear();
-                                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث الحكم على الحديث الحكم على الحديث الحكم على الحديث', '454'));
-                                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '23454'));
-                                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '234454'));
-                                              altarakeemlist.add(AltarakeemModel('الحكم على الحديث', '2354'));
+                                              altarakeemlist.add(AltarakeemModel(spinnerItemsUrdu[0], posobj2.data2![0].hadeesNumberZero.toString()));
+                                              altarakeemlist.add(AltarakeemModel(spinnerItemsUrdu[1], posobj2.data2![0].hadeesNumberTOne.toString()));
+                                              altarakeemlist.add(AltarakeemModel(spinnerItemsUrdu[2], posobj2.data2![0].hadeesNumberTTwo.toString()));
+                                              altarakeemlist.add(AltarakeemModel(spinnerItemsUrdu[3], posobj2.data2![0].hadeesNumberTThree.toString()));
+                                              altarakeemlist.add(AltarakeemModel(spinnerItemsUrdu[4], posobj2.data2![0].hadeesNumberTFour.toString()));
+                                              altarakeemlist.add(AltarakeemModel(spinnerItemsUrdu[5], posobj2.data2![0].hadeesNumberTFive.toString()));
+                                              altarakeemlist.add(AltarakeemModel(spinnerItemsUrdu[6], posobj2.data2![0].hadeesNumberTSix.toString()));
+                                              altarakeemlist.add(AltarakeemModel(spinnerItemsUrdu[7], posobj2.data2![0].hadeesNumberTSeven.toString()));
+                                              altarakeemlist.add(AltarakeemModel(spinnerItemsUrdu[8], posobj2.data2![0].hadeesNumberTEight.toString()));
+
                                               showDialog(context: context,
                                                   builder: (BuildContext context){
                                                     return CustomDialogBoxAltarakeem(
@@ -1005,7 +1026,7 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                           child: InkWell(
                                             splashColor: Colors.green,
                                             onTap: () {
-                                              alSharrahModel = AlSharrahModel('اس حدیث مبارکہ کے مطابق جو شخص مالی کفالت کرے گا اس کے لئے بھی اتنا ہی اجر جتنا کہ میدان عمل میں شریک شخص کے لئے ہے۔  تو آئیے! مجلس کے ساتھ ماہانہ یا سالانہ بنیادوں پر تعاون کا ایک سلسلہ شروع کریں تاکہ دین حق کے عالمگیر پیغام امن کو دنیا کے کونے کونے تک پہنچایا جا سکے۔ اللہ ہم سب حامی وناصر ہو اور ہمیں اپنے دین حنیف کی خدمت کی خدمت کی توفیق عطا فرمائے۔آمین');
+                                              alSharrahModel = AlSharrahModel(posobj2.data2![0].hadithHashiaText.toString());
                                               showDialog(context: context,
                                                   builder: (BuildContext context){
                                                     return CustomDialogBoxAlsharrah(

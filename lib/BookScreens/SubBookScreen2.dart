@@ -28,19 +28,19 @@ class _SubBookScreen2State extends State<SubBookScreen2> {
   late Future<pos> listUsers;
   pos posobj = new pos();
 
-  List<String> dropdownTarakeemList = [];
+  List<int> dropdownTarakeemList = [];
   List<String> dropdownTarajumList = [];
   List<String> dropdownHukamList = [];
 
   getSP() async{
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    dropdownTarakeemList.add(prefs.getString('tarakeem1').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem2').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem3').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem4').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem5').toString());
-    dropdownTarakeemList.add(prefs.getString('tarakeem6').toString());
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint1') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint2') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint3') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint4') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint5') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint6') ?? 1);
 
     dropdownTarajumList.add(prefs.getString('tarajum1').toString());
     dropdownTarajumList.add(prefs.getString('tarajum2').toString());

@@ -5,6 +5,8 @@ import 'package:mohaddis/NavMenuScreens/AboutScreen.dart';
 import 'package:mohaddis/NavMenuScreens/ContactScreen.dart';
 import 'package:mohaddis/NavMenuScreens/PropertiesScreen.dart';
 import 'package:mohaddis/NavMenuScreens/SupportScreen.dart';
+import 'package:mohaddis/SearchScreens/SearchResultSreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -14,6 +16,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+
+  static String mainbooklist = '1';
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -29,9 +33,41 @@ class _SearchScreenState extends State<SearchScreen> {
   final List<String> spinnerItemsArabic = ["الأحاديث","الكتب","الفصول" ,"المواضيع" ];
   late List<String> spinnerItems;
 
+  List<int> dropdownTarakeemList = [];
+  List<String> dropdownTarajumList = [];
+  List<String> dropdownHukamList = [];
+
+  getSP() async{
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint1') ?? 0);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint2') ?? 0);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint3') ?? 0);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint4') ?? 0);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint5') ?? 0);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint6') ?? 0);
+
+    dropdownTarajumList.add(prefs.getString('tarajum1').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum2').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum3').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum4').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum5').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum6').toString());
+
+    dropdownHukamList.add(prefs.getString('hukam1').toString());
+    dropdownHukamList.add(prefs.getString('hukam2').toString());
+    dropdownHukamList.add(prefs.getString('hukam3').toString());
+    dropdownHukamList.add(prefs.getString('hukam4').toString());
+    dropdownHukamList.add(prefs.getString('hukam5').toString());
+    dropdownHukamList.add(prefs.getString('hukam6').toString());
+
+  }
+
+
 
   @override
   void initState() {
+    getSP();
     isSelected = [true, false];
     super.initState();
   }
@@ -284,41 +320,52 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           SizedBox(height: 50,),
-          Container(
-            width: 110.0,
-            height: 50.0,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/backbutton.png'),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+          GestureDetector(
+            onTap: (){
+              setState(() {
+                setState(() {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => SearchResultScreen(text: controller.text , defaultTarakeem: dropdownTarakeemList, defaultTranslation: dropdownTarajumList, defaultHashiya: dropdownTarajumList, defaultHukam: dropdownHukamList, mainbookID: mainbooklist)));
 
-                Container(
-                  width: 15,
-                  height: 15,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/shape.png'),
-                      fit: BoxFit.fill,
+                });
+              });
+            },
+            child: Container(
+              width: 110.0,
+              height: 50.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/backbutton.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  Container(
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/shape.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Text(
-                  'تلا ش کریں',
-                  style: TextStyle(
-                      fontSize: 10.0,
-                      color: Colors.white,
+                  SizedBox(
+                    width: 10.0,
                   ),
-                ),
+                  Text(
+                    'تلا ش کریں',
+                    style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.white,
+                    ),
+                  ),
 
-              ],
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -441,42 +488,51 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
           SizedBox(height: 50,),
-          Container(
-            width: 110.0,
-            height: 50.0,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/backbutton.png'),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+          GestureDetector(
+            onTap: (){
+              setState(() {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => SearchResultScreen(text: controller.text , defaultTarakeem: dropdownTarakeemList, defaultTranslation: dropdownTarajumList, defaultHashiya: dropdownTarajumList, defaultHukam: dropdownHukamList, mainbookID: mainbooklist)));
 
-                Container(
-                  width: 15,
-                  height: 15,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/shape.png'),
-                      fit: BoxFit.fill,
+              });
+            },
+            child: Container(
+              width: 110.0,
+              height: 50.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/backbutton.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  Container(
+                    width: 15,
+                    height: 15,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/shape.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                Text(
-                  'تلا ش کریں',
-                  style: TextStyle(
-                      fontSize: 10.0,
-                      color: Colors.white,
-                      fontFamily: 'NotoNastaliqUrdu'
+                  SizedBox(
+                    width: 10.0,
                   ),
-                ),
+                  Text(
+                    'تلا ش کریں',
+                    style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.white,
+                        fontFamily: 'NotoNastaliqUrdu'
+                    ),
+                  ),
 
-              ],
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -687,6 +743,8 @@ class _CustomDialogState extends State<CustomDialog> {
   'سنن النسائي',
   'سنن ابن ماجه'
   ];
+
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -790,6 +848,26 @@ class _CustomDialogState extends State<CustomDialog> {
                                 _isChecked[index] = val!;
                               }
 
+                              _SearchScreenState.mainbooklist = '';
+                              for(int i=0;i<_isChecked.length;i++)
+                                {
+                                  if(_isChecked[i] == true)
+                                    {
+                                      if(i==0)
+                                        {
+
+                                        }
+                                      else if(i==1)
+                                        {
+                                          _SearchScreenState.mainbooklist = _SearchScreenState.mainbooklist + i.toString();
+                                        }
+                                      else
+                                        {
+                                          _SearchScreenState.mainbooklist = _SearchScreenState.mainbooklist + ',${i}';
+                                        }
+
+                                    }
+                                }
                             });
                           },
                         ),

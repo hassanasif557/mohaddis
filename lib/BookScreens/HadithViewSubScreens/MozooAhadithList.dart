@@ -48,6 +48,37 @@ class _MozooAhadithListState extends State<MozooAhadithList> {
   pos posobj = new pos();
 
 
+  List<int> dropdownTarakeemList = [];
+  List<String> dropdownTarajumList = [];
+  List<String> dropdownHukamList = [];
+
+  getSP() async{
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint1') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint2') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint3') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint4') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint5') ?? 1);
+    dropdownTarakeemList.add(prefs.getInt('tarakeemint6') ?? 1);
+
+    dropdownTarajumList.add(prefs.getString('tarajum1').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum2').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum3').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum4').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum5').toString());
+    dropdownTarajumList.add(prefs.getString('tarajum6').toString());
+
+    dropdownHukamList.add(prefs.getString('hukam1').toString());
+    dropdownHukamList.add(prefs.getString('hukam2').toString());
+    dropdownHukamList.add(prefs.getString('hukam3').toString());
+    dropdownHukamList.add(prefs.getString('hukam4').toString());
+    dropdownHukamList.add(prefs.getString('hukam5').toString());
+    dropdownHukamList.add(prefs.getString('hukam6').toString());
+
+  }
+
+
   void updater()
   {
     setState(() {
@@ -60,6 +91,9 @@ class _MozooAhadithListState extends State<MozooAhadithList> {
 
   @override
   void initState() {
+
+    getSP();
+
     setState(() {
       listUsers = fetchUsers(
           widget.topicID,
@@ -411,9 +445,15 @@ class _MozooAhadithListState extends State<MozooAhadithList> {
                                   String? mainbookID = prefs.getString('mainbookID');
                                   String? mainbook = prefs.getString('mainbookName');
 
+
+                                  String tarakeem = dropdownTarakeemList[int.parse(mainbookID!) - 1].toString();
+                                  String translation = dropdownTarajumList[int.parse(mainbookID!) - 1];
+                                  String hashiya = translation;
+                                  String hukam = dropdownHukamList[int.parse(mainbookID!) - 1];
+
                                   setState(() {
                                     Navigator.push(context,
-                                        MaterialPageRoute(builder: (_) => MozooAhadithList(title: 'title', topicID: '')));
+                                        MaterialPageRoute(builder: (_) => SubBookHomeScreen(id: "${posobj.data![index].hadeesNumber.toString()}", name: '${mainbook}', bookid: '${mainbookID}', tarakeem: '${tarakeem}', translation: '${translation}', hashiya: '${hashiya}', hukam: '${hukam}')));
 
                                   });
                                 },

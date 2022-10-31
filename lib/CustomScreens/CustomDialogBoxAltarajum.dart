@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mohaddis/ModelClasses/AlhukmModel.dart';
+import 'package:simple_html_css/simple_html_css.dart';
 
 import '../ModelClasses/AltarajumModel.dart';
 
@@ -249,6 +250,38 @@ class _CustomDialogBoxAltarajumState extends State<CustomDialogBoxAltarajum> {
                   height: 400,
                   width: double.maxFinite,
                   color: Colors.white,
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: DefaultTextStyle(
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.black,
+                          ),
+                          child: RichText(
+                            text: HTML.toTextSpan(context,
+                              "<body><span style='color:black;'>${altarajumModel.tab1}</span></body>",
+                              defaultTextStyle: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'NotoNastaliqUrdu',
+                              ),
+                              overrideStyle: {
+                                "p": TextStyle(
+                                    fontSize: 10,
+                                    fontFamily: 'NotoNastaliqUrdu'
+                                ),
+                              },
+                            ),
+                          )),
+                    ),
+                  ))
+                  : Container(
+                height: 400,
+                width: double.maxFinite,
+                color: Colors.white,
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: DefaultTextStyle(
@@ -256,20 +289,22 @@ class _CustomDialogBoxAltarajumState extends State<CustomDialogBoxAltarajum> {
                           fontSize: 12.0,
                           color: Colors.black,
                         ),
-                        child: Text(altarajumModel.tab1)),
-                  ))
-                  : Container(
-                height: 400,
-                width: double.maxFinite,
-                color: Colors.grey,
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: DefaultTextStyle(
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Colors.black,
-                      ),
-                      child: Text(altarajumModel.tab2)),
+                        child: RichText(
+                          text: HTML.toTextSpan(context,
+                            "<body><span style='color:black;'>${altarajumModel.tab2}</span></body>",
+                            defaultTextStyle: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'NotoNastaliqUrdu',
+                            ),
+                            overrideStyle: {
+                              "p": TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'NotoNastaliqUrdu'
+                              ),
+                            },
+                          ),
+                        )),
+                  ),
                 ),
               ),
             ),
