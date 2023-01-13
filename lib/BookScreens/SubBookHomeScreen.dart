@@ -683,8 +683,7 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                     height: 50.0,
                                     width: double.maxFinite,
                                     child: chapterbar
-                                        ? new Expanded(
-                                        child: Directionality(
+                                        ? Directionality(
                                           textDirection: TextDirection.rtl,
                                           child: Slider(
                                               value: _value.toDouble(),
@@ -722,7 +721,7 @@ class _SubBookHomeScreenState extends State<SubBookHomeScreen> {
                                               semanticFormatterCallback: (double newValue) {
                                                 return '${newValue.round()} dollars';
                                               }),
-                                        ))
+                                        )
                                         : Center(
                                       child: InkWell(
                                         splashColor: Colors.green,

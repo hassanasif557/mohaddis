@@ -59,6 +59,9 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
   late Future<pos> listUsers;
   pos posobj = new pos();
 
+  TextEditingController editingController = TextEditingController();
+  String search = '';
+
 
   void updater()
   {
@@ -213,25 +216,33 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                       child: Padding(
                         padding: const EdgeInsets.only(right: 10.0),
                         child: TextField(
+                          controller: editingController,
                           textAlign: TextAlign.right,
                           decoration: InputDecoration(
                               hintText: 'موضوع تلاش کریں',
                               hintStyle: TextStyle(
                                   fontSize: 10.0,
                                   fontFamily: 'NotoNastaliqUrdu'),
-                              prefixIcon: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3),
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/backbutton.png'),
-                                      fit: BoxFit.fill,
+                              prefixIcon: GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    search = editingController.text;
+                                  });
+                                },
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(3),
+                                      image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/backbutton.png'),
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
-                                  ),
-                                  child: Icon(
-                                    Icons.search,
-                                    color: Colors.white,
-                                  ))),
+                                    child: Icon(
+                                      Icons.search,
+                                      color: Colors.white,
+                                    )),
+                              )),
                         ),
                       ),
                     ),
@@ -376,7 +387,8 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
                         itemCount: posobj.data?.length,
                         itemBuilder: (BuildContext context, int index) {
                           print('list length ${posobj.data?.length}');
-                          return Padding(
+                          return posobj.data![index].hadeesNumber.toString().contains(search) || posobj.data![index].hadithUrduTextZero.toString().contains(search)
+                          ?Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5.0, horizontal: 20.0),
                             child: Container(
@@ -441,13 +453,14 @@ class _SubBookScreen3State extends State<SubBookScreen3> {
 
                                    setState(() {
                                      Navigator.push(context,
-                                         MaterialPageRoute(builder: (_) => SubBookHomeScreen(id: "${posobj.data![index].hadeesNumber.toString()}", name: '${mainbook}', bookid: '${mainbookID}', tarakeem: '${tarakeem}', translation: '${translation}', hashiya: '${hashiya}', hukam: '${hukam}')));
+                                         MaterialPageRoute(builder: (_) => SubBookHomeScreen(id: "${posobj.data![index].hadeesNumberZero.toString()}", name: '${mainbook}', bookid: '${mainbookID}', tarakeem: '${tarakeem}', translation: '${translation}', hashiya: '${hashiya}', hukam: '${hukam}')));
 
                                    });
                                 },
                               ),
                             ),
-                          );
+                          )
+                          :SizedBox();
                         }),
                   ),
                 ],

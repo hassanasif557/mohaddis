@@ -53,6 +53,9 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
   late Future<pos> listUsers;
   pos posobj = new pos();
 
+  TextEditingController editingController = TextEditingController();
+  String search = '';
+
 
   List<int> dropdownTarakeemList = [];
   List<String> dropdownTarajumList = [];
@@ -234,6 +237,7 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 10.0),
                   child: TextField(
+                    controller: editingController,
                     textAlign: TextAlign.right,
                     decoration: InputDecoration(
                         hintText: 'موضوع تلاش کریں',
@@ -241,15 +245,22 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                             fontSize: 10.0,
                             fontFamily: 'NotoNastaliqUrdu'
                         ),
-                        prefixIcon: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/backbutton.png'),
-                                fit: BoxFit.fill,
+                        prefixIcon: GestureDetector(
+                          onTap: (){
+                            setState(() {
+                              search = editingController.text;
+                            });
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3),
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/backbutton.png'),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            child: Icon(Icons.search, color: Colors.white,))),
+                              child: Icon(Icons.search, color: Colors.white,)),
+                        )),
                   ),
                 ),
               ),
@@ -260,7 +271,8 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                   itemCount: list.length,
                   itemBuilder: (BuildContext context, int index) {
                     count++;
-                    return Padding(
+                    return list[index].toString().contains(search)
+                        ?Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
                       child: Container(
                         height: 40.0,
@@ -314,7 +326,8 @@ class _SubChapterScreen1State extends State<SubChapterScreen1> {
                           },
                         ),
                       ),
-                    );
+                    )
+                        :SizedBox();
                   }),
             ),
           ],
